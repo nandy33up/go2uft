@@ -160,9 +160,6 @@ func (api *CMdApi) ReqForQuoteCancel(pReqForQuoteCancel []thost.CHSReqForQuoteFi
 }
 
 func (api *CMdApi) GetApiErrorMsg(nErrorCode int) string {
-	if nErrorCode < 0 {
-		nErrorCode = -nErrorCode
-	}
 	cs := C.hs_md_GetApiErrorMsg_static(C.uintptr_t(api.apiPtr), C.int(nErrorCode))
 	if cs == nil {
 		return ""

@@ -179,12 +179,10 @@ func (api *CTradeApi) RegisterFensServer(pszFensAddress string, pszAccountID str
 
 func (api *CTradeApi) RegisterSpi(pSpi thost.CHSTradeSpi) {
 	api.spi = pSpi
+	C.hs_td_RegisterSpi_static(C.uintptr_t(api.apiPtr), C.uintptr_t(api.handle))
 }
 
 func (api *CTradeApi) GetApiErrorMsg(nErrorCode int) string {
-	if nErrorCode < 0 {
-		nErrorCode = -nErrorCode
-	}
 	cs := C.hs_td_GetApiErrorMsg_static(C.uintptr_t(api.apiPtr), C.int(nErrorCode))
 	if cs == nil {
 		return ""
