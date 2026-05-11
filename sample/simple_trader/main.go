@@ -8,11 +8,11 @@ import (
 	"syscall"
 
 	"github.com/nandy33up/go2uft/thost"
-	"github.com/nandy33up/go2uft/uft_dyn"
+	"github.com/nandy33up/go2uft/uft"
 )
 
 type TradeSpi struct {
-	uft_dyn.BaseTradeSpi
+	uft.BaseTradeSpi
 }
 
 func NewTradeSpi() *TradeSpi {
@@ -68,23 +68,33 @@ func (s *TradeSpi) OnRtnTrade(pTrade *thost.CHSTradeField) {
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	log.Println("Go2UFT Trade Demo (Dynamic Library Version)")
+	log.Println("Go2UFT Trade Demo (Static Library Version)")
 	log.Println("==========================================")
 
-	tdapi := uft_dyn.CreateTradeApi(
-		uft_dyn.TradeDynamicLibPath("/path/to/libHSTradeApi.so"),
-	)
+	tdapi := uft.CreateTradeApi()
 
 	spi := NewTradeSpi()
 	tdapi.RegisterSpi(spi)
 
-	frontAddr := "tcp://127.0.0.1:17002"
+	frontAddr := "tcp://101.71.12.149:8102"
 	log.Printf("Connecting to: %s", frontAddr)
 	tdapi.RegisterFront(frontAddr)
 
 	log.Printf("API Version: %s", tdapi.GetApiVersion())
 
-	tdapi.Init(nil, nil)
+	initCfg := new(thost.CHSInitConfigField)
+	initCfg.APICheckVersion = thost.API_STRUCT_CHECK_VERSION
+	copy(initCfg.CommLicense[:], "license.dat")
+	ret := tdapi.Init(initCfg, nil)
+	if ret != 0 {
+		log.Printf("Trade: Init failed with code: %d, %s", ret, tdapi.GetApiErrorMsg(ret))
+	} else {
+		log.Println("Trade: Waiting for connection...")
+	}
+
+	go func() {
+		tdapi.Join()
+	}()
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)

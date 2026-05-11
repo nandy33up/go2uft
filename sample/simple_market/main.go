@@ -20,28 +20,27 @@ func NewMarketSpi() *MarketSpi {
 	return &MarketSpi{}
 }
 
+type MarketSubscribes struct {
+	ExchangeID   string
+	InstrumentID string
+}
+
 func (s *MarketSpi) OnFrontConnected() {
 	log.Println("Market: Front connected, subscribing to instruments...")
-
-	subscribes := []thost.CHSReqDepthMarketDataField{
-		{},
-		{},
-		{},
-		{},
-		{},
+	subscribes := []MarketSubscribes{
+		{"1", "588000"},
+		{"1", "588080"},
+		{"2", "159915"},
+		{"1", "10011299"},
+		{"2", "90007293"},
 	}
-	copy(subscribes[0].ExchangeID[:], "1")
-	copy(subscribes[0].InstrumentID[:], "588000")
-	copy(subscribes[1].ExchangeID[:], "1")
-	copy(subscribes[1].InstrumentID[:], "588080")
-	copy(subscribes[2].ExchangeID[:], "2")
-	copy(subscribes[2].InstrumentID[:], "159915")
-	copy(subscribes[3].ExchangeID[:], "1")
-	copy(subscribes[3].InstrumentID[:], "10011299")
-	copy(subscribes[4].ExchangeID[:], "2")
-	copy(subscribes[4].InstrumentID[:], "90007293")
+	pSubscribes := make([]thost.CHSReqDepthMarketDataField, len(subscribes))
+	for i, s := range subscribes {
+		copy(pSubscribes[i].ExchangeID[:], s.ExchangeID[:])
+		copy(pSubscribes[i].InstrumentID[:], s.InstrumentID[:])
+	}
 
-	mdapi.ReqDepthMarketDataSubscribe(subscribes, len(subscribes), 1)
+	mdapi.ReqDepthMarketDataSubscribe(pSubscribes, len(pSubscribes), 1)
 	log.Println("Market: Subscription request sent")
 }
 
@@ -56,7 +55,7 @@ func (s *MarketSpi) OnRtnDepthMarketData(pDepthMarketData *thost.CHSDepthMarketD
 	bidVol1 := pDepthMarketData.BidVolume1
 	ask1 := pDepthMarketData.AskPrice1
 	askVol1 := pDepthMarketData.AskVolume1
-	log.Printf("Market: %s LastPrice=%.2f Bid1=%.2f(%f) Ask1=%.2f(%f)",
+	log.Printf("Market: %s LastPrice=%.4f Bid1=%.4f(%.0f), Ask1=%.4f(%.0f)",
 		instID, lastPrice, bid1, bidVol1, ask1, askVol1)
 }
 
@@ -76,12 +75,9 @@ func main() {
 
 	log.Printf("API Version: %s", mdapi.GetApiVersion())
 
-	var license thost.HSLicenseFile
-	copy(license[:], "/root/go2uft/license.dat")
-	initCfg := &thost.CHSInitConfigField{
-		APICheckVersion: 240002,
-		CommLicense:     license,
-	}
+	initCfg := new(thost.CHSInitConfigField)
+	initCfg.APICheckVersion = thost.API_STRUCT_CHECK_VERSION
+	copy(initCfg.CommLicense[:], "license.dat")
 	ret := mdapi.Init(initCfg, nil)
 	if ret != 0 {
 		log.Printf("Market: Init failed with code: %d", ret)

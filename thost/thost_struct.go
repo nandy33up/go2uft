@@ -1,6 +1,8 @@
 package thost
 
-///初始化配置
+const API_STRUCT_CHECK_VERSION = 240002
+
+// 初始化配置
 type CHSInitConfigField struct {
 	/// API结构体版本校验
 	APICheckVersion HSCheckVersion
@@ -26,7 +28,7 @@ type CHSInitConfigField struct {
 	SksCheckCertFlag HSSksCheckCertFlag
 }
 
-///响应信息
+// 响应信息
 type CHSRspInfoField struct {
 	/// 错误代码
 	ErrorID HSErrorID
@@ -34,7 +36,7 @@ type CHSRspInfoField struct {
 	ErrorMsg HSErrorMsg
 }
 
-///接入认证
+// 接入认证
 type CHSReqAuthenticateField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -46,7 +48,7 @@ type CHSReqAuthenticateField struct {
 	AuthCode HSAuthCode
 }
 
-///接入认证应答
+// 接入认证应答
 type CHSRspAuthenticateField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -58,7 +60,7 @@ type CHSRspAuthenticateField struct {
 	AppIDType HSAppIDType
 }
 
-///用户信息上报请求
+// 用户信息上报请求
 type CHSReqUserSystemInfoField struct {
 	/// 客户端登陆时间
 	AppLoginTime HSStrTime
@@ -72,11 +74,11 @@ type CHSReqUserSystemInfoField struct {
 	AppAbnormalType HSAppAbnormalType
 }
 
-///用户信息上报应答
+// 用户信息上报应答
 type CHSRspUserSystemInfoField struct {
 }
 
-///客户登录
+// 客户登录
 type CHSReqUserLoginField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -94,7 +96,7 @@ type CHSReqUserLoginField struct {
 	UserStationInfo HSUserStationInfo
 }
 
-///客户登录应答
+// 客户登录应答
 type CHSRspUserLoginField struct {
 	/// 营业部号
 	BranchID HSNum
@@ -140,7 +142,7 @@ type CHSRspUserLoginField struct {
 	GFEXTime HSTime
 }
 
-///密码更改
+// 密码更改
 type CHSReqUserPasswordUpdateField struct {
 	/// 密码类型
 	PasswordType HSPasswordType
@@ -150,11 +152,11 @@ type CHSReqUserPasswordUpdateField struct {
 	NewPassword HSPassword
 }
 
-///密码更改应答
+// 密码更改应答
 type CHSRspUserPasswordUpdateField struct {
 }
 
-///报单录入
+// 报单录入
 type CHSReqOrderInsertField struct {
 	/// 报单引用
 	OrderRef HSRef
@@ -188,7 +190,7 @@ type CHSReqOrderInsertField struct {
 	SeatIndex HSSeatIndex
 }
 
-///报单录入应答
+// 报单录入应答
 type CHSRspOrderInsertField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -234,7 +236,7 @@ type CHSRspOrderInsertField struct {
 	SeatIndex HSSeatIndex
 }
 
-///撤单
+// 撤单
 type CHSReqOrderActionField struct {
 	/// 报单编码
 	OrderSysID HSOrderSysID
@@ -248,7 +250,7 @@ type CHSReqOrderActionField struct {
 	OrderActionRef HSRef
 }
 
-///撤单应答
+// 撤单应答
 type CHSRspOrderActionField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -268,7 +270,7 @@ type CHSRspOrderActionField struct {
 	OrderActionRef HSRef
 }
 
-///行权录入
+// 行权录入
 type CHSReqExerciseOrderInsertField struct {
 	/// 行权引用
 	ExerciseRef HSRef
@@ -288,7 +290,7 @@ type CHSReqExerciseOrderInsertField struct {
 	CloseFlag HSCloseFlag
 }
 
-///行权录入应答
+// 行权录入应答
 type CHSRspExerciseOrderInsertField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -320,7 +322,7 @@ type CHSRspExerciseOrderInsertField struct {
 	ExerciseBrokerOrderID HSBrokerOrderID
 }
 
-///行权撤单
+// 行权撤单
 type CHSReqExerciseOrderActionField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -334,7 +336,7 @@ type CHSReqExerciseOrderActionField struct {
 	ExecOrderActionRef HSRef
 }
 
-///行权撤单应答
+// 行权撤单应答
 type CHSRspExerciseOrderActionField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -352,7 +354,7 @@ type CHSRspExerciseOrderActionField struct {
 	ExecOrderActionRef HSRef
 }
 
-///锁定录入
+// 锁定录入
 type CHSReqLockInsertField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -366,7 +368,7 @@ type CHSReqLockInsertField struct {
 	LockRef HSRef
 }
 
-///锁定录入应答
+// 锁定录入应答
 type CHSRspLockInsertField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -390,7 +392,7 @@ type CHSRspLockInsertField struct {
 	LockRef HSRef
 }
 
-///询价录入
+// 询价录入
 type CHSReqForQuoteInsertField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -398,7 +400,7 @@ type CHSReqForQuoteInsertField struct {
 	InstrumentID HSInstrumentID
 }
 
-///询价录入应答
+// 询价录入应答
 type CHSRspForQuoteInsertField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -410,7 +412,7 @@ type CHSRspForQuoteInsertField struct {
 	OrderStatus HSOrderStatus
 }
 
-///报价录入
+// 报价录入
 type CHSReqQuoteInsertField struct {
 	/// 交易类别
 	ExchangeID HSExchangeID
@@ -446,7 +448,7 @@ type CHSReqQuoteInsertField struct {
 	QuoteSysID HSOrderSysID
 }
 
-///报价录入应答
+// 报价录入应答
 type CHSRspQuoteInsertField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -496,7 +498,7 @@ type CHSRspQuoteInsertField struct {
 	QuoteSysID HSOrderSysID
 }
 
-///报价撤单
+// 报价撤单
 type CHSReqQuoteActionField struct {
 	/// 报价报单编码
 	QuoteSysID HSOrderSysID
@@ -512,7 +514,7 @@ type CHSReqQuoteActionField struct {
 	InstrumentID HSInstrumentID
 }
 
-///报价撤单应答
+// 报价撤单应答
 type CHSRspQuoteActionField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -534,7 +536,7 @@ type CHSRspQuoteActionField struct {
 	InstrumentID HSInstrumentID
 }
 
-///申请组合录入
+// 申请组合录入
 type CHSReqCombActionInsertField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -558,7 +560,7 @@ type CHSReqCombActionInsertField struct {
 	CombOrderRef HSRef
 }
 
-///申请组合录入应答
+// 申请组合录入应答
 type CHSRspCombActionInsertField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -590,7 +592,7 @@ type CHSRspCombActionInsertField struct {
 	CombOrderRef HSRef
 }
 
-///最大报单数量获取
+// 最大报单数量获取
 type CHSReqQueryMaxOrderVolumeField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -610,7 +612,7 @@ type CHSReqQueryMaxOrderVolumeField struct {
 	CombPositionID HSCombPositionID
 }
 
-///最大报单数量获取应答
+// 最大报单数量获取应答
 type CHSRspQueryMaxOrderVolumeField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -638,7 +640,7 @@ type CHSRspQueryMaxOrderVolumeField struct {
 	ErrorMsg HSErrorMsg
 }
 
-///可锁定数量获取
+// 可锁定数量获取
 type CHSReqQryLockVolumeField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -648,7 +650,7 @@ type CHSReqQryLockVolumeField struct {
 	LockType HSLockType
 }
 
-///可锁定数量获取应答
+// 可锁定数量获取应答
 type CHSRspQryLockVolumeField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -662,7 +664,7 @@ type CHSRspQryLockVolumeField struct {
 	AvailablePositionVolume HSVolume
 }
 
-///可行权数量获取
+// 可行权数量获取
 type CHSReqQueryExerciseVolumeField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -670,7 +672,7 @@ type CHSReqQueryExerciseVolumeField struct {
 	InstrumentID HSInstrumentID
 }
 
-///可行权数量获取应答
+// 可行权数量获取应答
 type CHSRspQueryExerciseVolumeField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -682,7 +684,7 @@ type CHSRspQueryExerciseVolumeField struct {
 	InstrumentID HSInstrumentID
 }
 
-///申请组合最大数量获取
+// 申请组合最大数量获取
 type CHSReqQryCombVolumeField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -696,7 +698,7 @@ type CHSReqQryCombVolumeField struct {
 	CombDirection HSCombDirection
 }
 
-///申请组合最大数量获取应答
+// 申请组合最大数量获取应答
 type CHSRspQryCombVolumeField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -714,7 +716,7 @@ type CHSRspQryCombVolumeField struct {
 	MaxOrderVolumeUnit HSVolume
 }
 
-///持仓汇总查询请求
+// 持仓汇总查询请求
 type CHSReqQryPositionField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -722,7 +724,7 @@ type CHSReqQryPositionField struct {
 	InstrumentID HSInstrumentID
 }
 
-///持仓汇总查询应答
+// 持仓汇总查询应答
 type CHSRspQryPositionField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -790,11 +792,11 @@ type CHSRspQryPositionField struct {
 	TASPositionVolume HSVolume
 }
 
-///资金账户查询
+// 资金账户查询
 type CHSReqQryTradingAccountField struct {
 }
 
-///资金账户查询应答
+// 资金账户查询应答
 type CHSRspQryTradingAccountField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -866,7 +868,7 @@ type CHSRspQryTradingAccountField struct {
 	YdWarrantMortgage HSBalance
 }
 
-///报单查询
+// 报单查询
 type CHSReqQryOrderField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -878,7 +880,7 @@ type CHSReqQryOrderField struct {
 	ExchangeAccountID HSExchangeAccountID
 }
 
-///历史报单查询
+// 历史报单查询
 type CHSReqQryHistOrderField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -894,7 +896,7 @@ type CHSReqQryHistOrderField struct {
 	ExchangeAccountID HSExchangeAccountID
 }
 
-///报单信息
+// 报单信息
 type CHSOrderField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -960,7 +962,7 @@ type CHSOrderField struct {
 	SeatIndex HSSeatIndex
 }
 
-///成交查询
+// 成交查询
 type CHSReqQryTradeField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -970,7 +972,7 @@ type CHSReqQryTradeField struct {
 	ExchangeAccountID HSExchangeAccountID
 }
 
-///历史成交查询
+// 历史成交查询
 type CHSReqQryHistTradeField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -984,7 +986,7 @@ type CHSReqQryHistTradeField struct {
 	ExchangeAccountID HSExchangeAccountID
 }
 
-///成交信息
+// 成交信息
 type CHSTradeField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1026,7 +1028,7 @@ type CHSTradeField struct {
 	ExchangeAccountID HSExchangeAccountID
 }
 
-///行权查询
+// 行权查询
 type CHSReqQryExerciseField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1036,7 +1038,7 @@ type CHSReqQryExerciseField struct {
 	ExerciseOrderSysID HSOrderSysID
 }
 
-///历史行权查询
+// 历史行权查询
 type CHSReqQryHistExerciseField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1050,7 +1052,7 @@ type CHSReqQryHistExerciseField struct {
 	EndDate HSDate
 }
 
-///行权信息
+// 行权信息
 type CHSExerciseField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1096,7 +1098,7 @@ type CHSExerciseField struct {
 	ExchangeAccountID HSExchangeAccountID
 }
 
-///锁定查询
+// 锁定查询
 type CHSReqQryLockField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1106,7 +1108,7 @@ type CHSReqQryLockField struct {
 	LockOrderSysID HSOrderSysID
 }
 
-///历史锁定查询
+// 历史锁定查询
 type CHSReqQryHistLockField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1120,7 +1122,7 @@ type CHSReqQryHistLockField struct {
 	EndDate HSDate
 }
 
-///锁定信息
+// 锁定信息
 type CHSLockField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1150,7 +1152,7 @@ type CHSLockField struct {
 	SessionID HSSessionID
 }
 
-///申请组合查询
+// 申请组合查询
 type CHSReqQryCombActionField struct {
 	/// 组合报单编码
 	CombOrderSysID HSOrderSysID
@@ -1160,7 +1162,7 @@ type CHSReqQryCombActionField struct {
 	InstrumentID HSInstrumentID
 }
 
-///历史申请组合查询
+// 历史申请组合查询
 type CHSReqQryHistCombActionField struct {
 	/// 组合报单编码
 	CombOrderSysID HSOrderSysID
@@ -1174,7 +1176,7 @@ type CHSReqQryHistCombActionField struct {
 	EndDate HSDate
 }
 
-///申请组合信息
+// 申请组合信息
 type CHSCombActionField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1216,13 +1218,13 @@ type CHSCombActionField struct {
 	SessionID HSSessionID
 }
 
-///询价订阅，取消订阅请求
+// 询价订阅，取消订阅请求
 type CHSReqForQuoteField struct {
-	ExchangeID HSExchangeID
+	ExchangeID   HSExchangeID
 	InstrumentID HSInstrumentID
 }
 
-///询价查询
+// 询价查询
 type CHSReqQryForQuoteField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1232,7 +1234,7 @@ type CHSReqQryForQuoteField struct {
 	ForQuoteSysID HSOrderSysID
 }
 
-///询价信息
+// 询价信息
 type CHSForQuoteField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1246,7 +1248,7 @@ type CHSForQuoteField struct {
 	UpdateTime HSTime
 }
 
-///报价查询
+// 报价查询
 type CHSReqQryQuoteField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1258,7 +1260,7 @@ type CHSReqQryQuoteField struct {
 	QuoteBrokerID HSBrokerOrderID
 }
 
-///报价信息
+// 报价信息
 type CHSQuoteField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1320,7 +1322,7 @@ type CHSQuoteField struct {
 	TopOrderType HSTopOrderType
 }
 
-///组合持仓明细查询请求
+// 组合持仓明细查询请求
 type CHSReqQryPositionCombineDetailField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1330,7 +1332,7 @@ type CHSReqQryPositionCombineDetailField struct {
 	CombStrategyID HSCombStrategyID
 }
 
-///组合持仓明细查询应答
+// 组合持仓明细查询应答
 type CHSRspQryPositionCombineDetailField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1362,7 +1364,7 @@ type CHSRspQryPositionCombineDetailField struct {
 	SecondHedgeType HSHedgeType
 }
 
-///合约信息查询
+// 合约信息查询
 type CHSReqQryInstrumentField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1370,7 +1372,7 @@ type CHSReqQryInstrumentField struct {
 	InstrumentID HSInstrumentID
 }
 
-///合约信息查询应答
+// 合约信息查询应答
 type CHSRspQryInstrumentField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1422,13 +1424,13 @@ type CHSRspQryInstrumentField struct {
 	CombType HSCombType
 }
 
-///备兑缺口查询请求
+// 备兑缺口查询请求
 type CHSReqQryCoveredShortField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
 }
 
-///备兑缺口查询应答
+// 备兑缺口查询应答
 type CHSRspQryCoveredShortField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1446,7 +1448,7 @@ type CHSRspQryCoveredShortField struct {
 	MsgContent HSMsgContent
 }
 
-///行权指派查询请求
+// 行权指派查询请求
 type CHSReqQryExerciseAssignField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1456,7 +1458,7 @@ type CHSReqQryExerciseAssignField struct {
 	PositionType HSPositionType
 }
 
-///行权指派查询应答
+// 行权指派查询应答
 type CHSRspQryExerciseAssignField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1482,7 +1484,7 @@ type CHSRspQryExerciseAssignField struct {
 	SettlementBalance HSBalance
 }
 
-///银行转账请求
+// 银行转账请求
 type CHSReqTransferField struct {
 	/// 银行代码
 	BankID HSBankID
@@ -1500,7 +1502,7 @@ type CHSReqTransferField struct {
 	TransferOccasion HSOccasion
 }
 
-///银行转账应答
+// 银行转账应答
 type CHSRspTransferField struct {
 	/// 转账流水
 	TransferSerialID HSNum
@@ -1516,7 +1518,7 @@ type CHSRspTransferField struct {
 	TransferOccasion HSOccasion
 }
 
-///银行转账查询请求
+// 银行转账查询请求
 type CHSReqQryTransferField struct {
 	/// 银行代码
 	BankID HSBankID
@@ -1524,7 +1526,7 @@ type CHSReqQryTransferField struct {
 	TransferSerialID HSNum
 }
 
-///银行转账查询应答
+// 银行转账查询应答
 type CHSRspQryTransferField struct {
 	/// 转账流水
 	TransferSerialID HSNum
@@ -1556,7 +1558,7 @@ type CHSRspQryTransferField struct {
 	TransferOccasion HSOccasion
 }
 
-///银行余额查询请求
+// 银行余额查询请求
 type CHSReqQueryBankBalanceField struct {
 	/// 银行代码
 	BankID HSBankID
@@ -1568,13 +1570,13 @@ type CHSReqQueryBankBalanceField struct {
 	CurrencyID HSCurrencyID
 }
 
-///银行余额查询应答
+// 银行余额查询应答
 type CHSRspQueryBankBalanceField struct {
 	/// 转账流水
 	TransferSerialID HSNum
 }
 
-///银行账户查询请求
+// 银行账户查询请求
 type CHSReqQueryBankAccountField struct {
 	/// 银行代码
 	BankID HSBankID
@@ -1582,7 +1584,7 @@ type CHSReqQueryBankAccountField struct {
 	CurrencyID HSCurrencyID
 }
 
-///银行账户查询应答
+// 银行账户查询应答
 type CHSRspQueryBankAccountField struct {
 	/// 银行代码
 	BankID HSBankID
@@ -1594,7 +1596,7 @@ type CHSRspQueryBankAccountField struct {
 	CurrencyID HSCurrencyID
 }
 
-///多中心资金调拨请求
+// 多中心资金调拨请求
 type CHSReqMultiCentreFundTransField struct {
 	/// 币种
 	CurrencyID HSCurrencyID
@@ -1604,7 +1606,7 @@ type CHSReqMultiCentreFundTransField struct {
 	TransDirection HSTransDirection
 }
 
-///多中心资金调拨应答
+// 多中心资金调拨应答
 type CHSRspMultiCentreFundTransField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1620,7 +1622,7 @@ type CHSRspMultiCentreFundTransField struct {
 	OppositeTransferSerialID HSNum
 }
 
-///客户账单查询请求
+// 客户账单查询请求
 type CHSReqQueryBillContentField struct {
 	/// 开始日期
 	BeginDate HSDate
@@ -1628,17 +1630,17 @@ type CHSReqQueryBillContentField struct {
 	EndDate HSDate
 }
 
-///客户账单查询应答
+// 客户账单查询应答
 type CHSRspQueryBillContentField struct {
 	/// 账单内容
 	BillContent HSBillContent
 }
 
-///客户账单确认请求
+// 客户账单确认请求
 type CHSReqBillConfirmField struct {
 }
 
-///客户账单确认应答
+// 客户账单确认应答
 type CHSRspBillConfirmField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1650,7 +1652,7 @@ type CHSRspBillConfirmField struct {
 	ConfirmTime HSTime
 }
 
-///保证金查询请求
+// 保证金查询请求
 type CHSReqQryMarginField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1662,7 +1664,7 @@ type CHSReqQryMarginField struct {
 	HedgeType HSHedgeType
 }
 
-///保证金查询应答
+// 保证金查询应答
 type CHSRspQryMarginField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1684,7 +1686,7 @@ type CHSRspQryMarginField struct {
 	ShortMargin HSBalance
 }
 
-///手续费查询请求
+// 手续费查询请求
 type CHSReqQryCommissionField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1696,7 +1698,7 @@ type CHSReqQryCommissionField struct {
 	UnderlyingInstrID HSInstrumentID
 }
 
-///手续费查询应答
+// 手续费查询应答
 type CHSRspQryCommissionField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1742,7 +1744,7 @@ type CHSRspQryCommissionField struct {
 	StockValue HSBalance
 }
 
-///汇率查询请求
+// 汇率查询请求
 type CHSReqQryExchangeRateField struct {
 	/// 原币种
 	FromCurrencyID HSCurrencyID
@@ -1750,7 +1752,7 @@ type CHSReqQryExchangeRateField struct {
 	ToCurrencyID HSCurrencyID
 }
 
-///汇率查询应答
+// 汇率查询应答
 type CHSRspQryExchangeRateField struct {
 	/// 原币种
 	FromCurrencyID HSCurrencyID
@@ -1762,7 +1764,7 @@ type CHSRspQryExchangeRateField struct {
 	FromCurrencyUnit HSVolume
 }
 
-///持仓明细查询请求
+// 持仓明细查询请求
 type CHSReqQryPositionDetailField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1770,7 +1772,7 @@ type CHSReqQryPositionDetailField struct {
 	InstrumentID HSInstrumentID
 }
 
-///持仓明细查询应答
+// 持仓明细查询应答
 type CHSRspQryPositionDetailField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1810,11 +1812,11 @@ type CHSRspQryPositionDetailField struct {
 	PositionSerialID HSNum
 }
 
-///经纪公司配置参数查询请求
+// 经纪公司配置参数查询请求
 type CHSReqQrySysConfigField struct {
 }
 
-///经纪公司配置参数查询应答
+// 经纪公司配置参数查询应答
 type CHSRspQrySysConfigField struct {
 	/// 配置编号
 	ConfigNo HSConfigNo
@@ -1822,13 +1824,13 @@ type CHSRspQrySysConfigField struct {
 	ConfigValue HSConfigValue
 }
 
-///行情订阅，取消订阅请求
+// 行情订阅，取消订阅请求
 type CHSReqDepthMarketDataField struct {
-	ExchangeID HSExchangeID
+	ExchangeID   HSExchangeID
 	InstrumentID HSInstrumentID
 }
 
-///行情查询请求
+// 行情查询请求
 type CHSReqQryDepthMarketDataField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -1836,7 +1838,7 @@ type CHSReqQryDepthMarketDataField struct {
 	InstrumentID HSInstrumentID
 }
 
-///行情信息
+// 行情信息
 type CHSDepthMarketDataField struct {
 	/// 交易日
 	TradingDay HSDate
@@ -1932,7 +1934,7 @@ type CHSDepthMarketDataField struct {
 	SendingTime HSTime
 }
 
-///撤单信息
+// 撤单信息
 type CHSOrderActionField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -1978,7 +1980,7 @@ type CHSOrderActionField struct {
 	OrderSource HSOrderSource
 }
 
-///快速交易与集中交易之间资金调拨请求
+// 快速交易与集中交易之间资金调拨请求
 type CHSReqFundTransField struct {
 	/// 调拨方向
 	TransDirection HSTransDirection
@@ -1988,17 +1990,17 @@ type CHSReqFundTransField struct {
 	OccurBalance HSBalance
 }
 
-///快速交易与集中交易之间资金调拨应答
+// 快速交易与集中交易之间资金调拨应答
 type CHSRspFundTransField struct {
 	/// 资金调拨流水
 	FundTransSerialID HSNum
 }
 
-///资金调拨流水查询请求
+// 资金调拨流水查询请求
 type CHSReqQryFundTransField struct {
 }
 
-///资金调拨流水查询应答
+// 资金调拨流水查询应答
 type CHSRspQryFundTransField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -2018,11 +2020,11 @@ type CHSRspQryFundTransField struct {
 	PostBalance HSBalance
 }
 
-///客户通知查询请求
+// 客户通知查询请求
 type CHSReqQryClientNoticeField struct {
 }
 
-///客户通知信息
+// 客户通知信息
 type CHSClientNoticeField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -2038,7 +2040,7 @@ type CHSClientNoticeField struct {
 	MsgTime HSTime
 }
 
-///期权标的信息查询请求
+// 期权标的信息查询请求
 type CHSReqQryOptUnderlyField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2046,7 +2048,7 @@ type CHSReqQryOptUnderlyField struct {
 	UnderlyingInstrID HSInstrumentID
 }
 
-///期权标的信息查询应答
+// 期权标的信息查询应答
 type CHSRspQryOptUnderlyField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2094,7 +2096,7 @@ type CHSRspQryOptUnderlyField struct {
 	UpdateType HSNum
 }
 
-///证券行情查询请求
+// 证券行情查询请求
 type CHSReqQrySecuDepthMarketField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2102,7 +2104,7 @@ type CHSReqQrySecuDepthMarketField struct {
 	UnderlyingInstrID HSInstrumentID
 }
 
-///证券行情查询应答
+// 证券行情查询应答
 type CHSRspQrySecuDepthMarketField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2166,7 +2168,7 @@ type CHSRspQrySecuDepthMarketField struct {
 	AskVolume5 HSVolume
 }
 
-///交易所状态信息
+// 交易所状态信息
 type CHSExchangeStatusField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2176,7 +2178,7 @@ type CHSExchangeStatusField struct {
 	TradingFlag HSTradingFlag
 }
 
-///合约品种状态信息
+// 合约品种状态信息
 type CHSProductStatusField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2190,7 +2192,7 @@ type CHSProductStatusField struct {
 	ProductStatus HSExchangeStatus
 }
 
-///可取资金查询请求
+// 可取资金查询请求
 type CHSReqQryWithdrawFundField struct {
 	/// 币种类别
 	CurrencyID HSCurrencyID
@@ -2198,7 +2200,7 @@ type CHSReqQryWithdrawFundField struct {
 	SysNodeID HSSysnodeID
 }
 
-///可取资金查询应答
+// 可取资金查询应答
 type CHSRspQryWithdrawFundField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -2212,7 +2214,7 @@ type CHSRspQryWithdrawFundField struct {
 	WithdrawBalance HSBalance
 }
 
-///组合合约查询请求
+// 组合合约查询请求
 type CHSReqQryCombInstrumentField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2220,7 +2222,7 @@ type CHSReqQryCombInstrumentField struct {
 	InstrumentID HSInstrumentID
 }
 
-///组合合约查询应答
+// 组合合约查询应答
 type CHSRspQryCombInstrumentField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -2240,13 +2242,13 @@ type CHSRspQryCombInstrumentField struct {
 	PriorityLevel HSVolume
 }
 
-///席位查询请求
+// 席位查询请求
 type CHSReqQrySeatIDField struct {
 	/// 交易类别
 	ExchangeID HSExchangeID
 }
 
-///席位查询应答
+// 席位查询应答
 type CHSRspQrySeatIDField struct {
 	/// 交易类别
 	ExchangeID HSExchangeID
@@ -2256,7 +2258,7 @@ type CHSRspQrySeatIDField struct {
 	SeatID HSSeatID
 }
 
-///期权对冲设置请求
+// 期权对冲设置请求
 type CHSReqOptionSelfCloseField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2268,7 +2270,7 @@ type CHSReqOptionSelfCloseField struct {
 	SelfCloseType HSSelfCloseType
 }
 
-///期权对冲设置应答
+// 期权对冲设置应答
 type CHSRspOptionSelfCloseField struct {
 	/// 资金账号
 	AccountID HSAccountID
@@ -2282,7 +2284,7 @@ type CHSRspOptionSelfCloseField struct {
 	SelfCloseType HSSelfCloseType
 }
 
-///期权对冲设置取消请求
+// 期权对冲设置取消请求
 type CHSReqOptionSelfCloseActionField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2292,7 +2294,7 @@ type CHSReqOptionSelfCloseActionField struct {
 	SelfCloseType HSSelfCloseType
 }
 
-///期权对冲设置取消应答
+// 期权对冲设置取消应答
 type CHSRspOptionSelfCloseActionField struct {
 	/// 资金账号
 	AccountID HSAccountID
@@ -2304,7 +2306,7 @@ type CHSRspOptionSelfCloseActionField struct {
 	SelfCloseType HSSelfCloseType
 }
 
-///查询期权自对冲请求
+// 查询期权自对冲请求
 type CHSReqQryOptionSelfCloseField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2312,7 +2314,7 @@ type CHSReqQryOptionSelfCloseField struct {
 	InstrumentID HSInstrumentID
 }
 
-///期权自对冲信息
+// 期权自对冲信息
 type CHSOptionSelfCloseField struct {
 	/// 资金账号
 	AccountID HSAccountID
@@ -2334,7 +2336,7 @@ type CHSOptionSelfCloseField struct {
 	SelfCloseOrderSysID HSOrderSysID
 }
 
-///期权对冲设置结果查询请求
+// 期权对冲设置结果查询请求
 type CHSReqQryOptionSelfCloseResultField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2342,7 +2344,7 @@ type CHSReqQryOptionSelfCloseResultField struct {
 	InstrumentID HSInstrumentID
 }
 
-///期权对冲设置结果查询应答
+// 期权对冲设置结果查询应答
 type CHSRspQryOptionSelfCloseResultField struct {
 	/// 资金账号
 	AccountID HSAccountID
@@ -2356,7 +2358,7 @@ type CHSRspQryOptionSelfCloseResultField struct {
 	OrderVolume HSVolume
 }
 
-///银行转账信息
+// 银行转账信息
 type CHSTransferField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -2390,7 +2392,7 @@ type CHSTransferField struct {
 	TransferOccasion HSOccasion
 }
 
-///国密证书信息
+// 国密证书信息
 type CHSSMCertInfoField struct {
 	/// 证书标识
 	CertID HSCertID
@@ -2406,7 +2408,7 @@ type CHSSMCertInfoField struct {
 	IsCurrent HSIsCurrent
 }
 
-///股票期权报价录入请求
+// 股票期权报价录入请求
 type CHSReqOptQuoteInsertField struct {
 	/// 交易类别
 	ExchangeID HSExchangeID
@@ -2430,7 +2432,7 @@ type CHSReqOptQuoteInsertField struct {
 	ForQuoteSysID HSOrderSysID
 }
 
-///股票期权报价录入应答
+// 股票期权报价录入应答
 type CHSRspOptQuoteInsertField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -2468,7 +2470,7 @@ type CHSRspOptQuoteInsertField struct {
 	SessionID HSSessionID
 }
 
-///股票期权报价撤单请求
+// 股票期权报价撤单请求
 type CHSReqOptQuoteActionField struct {
 	/// 交易类别
 	ExchangeID HSExchangeID
@@ -2482,7 +2484,7 @@ type CHSReqOptQuoteActionField struct {
 	QuoteActionRef HSRef
 }
 
-///股票期权报价撤单应答
+// 股票期权报价撤单应答
 type CHSRspOptQuoteActionField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -2510,7 +2512,7 @@ type CHSRspOptQuoteActionField struct {
 	SessionID HSSessionID
 }
 
-///股票期权报价查询请求
+// 股票期权报价查询请求
 type CHSReqQryOptQuoteField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2522,7 +2524,7 @@ type CHSReqQryOptQuoteField struct {
 	QuoteBrokerID HSBrokerOrderID
 }
 
-///股票期权报价信息
+// 股票期权报价信息
 type CHSOptQuoteField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -2586,7 +2588,7 @@ type CHSOptQuoteField struct {
 	OrderStatus HSOrderStatus
 }
 
-///股票期权报价撤单信息
+// 股票期权报价撤单信息
 type CHSOptQuoteActionField struct {
 	/// 账号
 	AccountID HSAccountID
@@ -2610,7 +2612,7 @@ type CHSOptQuoteActionField struct {
 	ErrorMsg HSErrorMsg
 }
 
-///股票期权组合策略信息查询请求
+// 股票期权组合策略信息查询请求
 type CHSReqQryOptCombStrategyField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
@@ -2618,7 +2620,7 @@ type CHSReqQryOptCombStrategyField struct {
 	CombStrategyID HSCombStrategyID
 }
 
-///股票期权组合策略信息查询应答
+// 股票期权组合策略信息查询应答
 type CHSRspQryOptCombStrategyField struct {
 	/// 交易所代码
 	ExchangeID HSExchangeID
