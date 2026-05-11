@@ -32,31 +32,18 @@ const (
 	UserStationInfo     = "192.168.1.2:9006"
 )
 
-// 请求ID生成器
-type RequestID struct {
-	id int
-}
-
-func (r *RequestID) Next() int {
-	r.id++
-	return r.id
-}
-
-type TradeSpi struct {
+type Trader struct {
 	uft.BaseTradeSpi
-	api       thost.CHSTradeApi
-	requestID *RequestID
+	api thost.CHSTradeApi
+	seq int
 }
 
-func NewTradeSpi(api thost.CHSTradeApi) *TradeSpi {
-	return &TradeSpi{
-		api:       api,
-		requestID: &RequestID{},
-	}
+func NewTrader() *Trader {
+	return &Trader{api: uft.CreateTradeApi()}
 }
 
 // OnFrontConnected 前置机连接成功回调
-func (s *TradeSpi) OnFrontConnected() {
+func (t *Trader) OnFrontConnected() {
 	log.Println("========================================")
 	log.Println("Trade: Front connected")
 	log.Println("Trade: Sending authenticate request...")
@@ -68,19 +55,19 @@ func (s *TradeSpi) OnFrontConnected() {
 	copy(authField.AppID[:], AppID)
 	copy(authField.AuthCode[:], AuthCode)
 
-	ret := s.api.ReqAuthenticate(authField, s.requestID.Next())
+	ret := t.api.ReqAuthenticate(authField, t.nextSeq())
 	if ret != 0 {
-		log.Printf("Trade: ReqAuthenticate failed with code: %d, %s", ret, s.api.GetApiErrorMsg(ret))
+		log.Printf("Trade: ReqAuthenticate failed with code: %d, %s", ret, t.api.GetApiErrorMsg(ret))
 	}
 }
 
 // OnFrontDisconnected 前置机断开回调
-func (s *TradeSpi) OnFrontDisconnected(nResult int) {
-	log.Printf("Trade: Front disconnected, result=%d, %s", nResult, s.api.GetApiErrorMsg(nResult))
+func (t *Trader) OnFrontDisconnected(nResult int) {
+	log.Printf("Trade: Front disconnected, result=%d, %s", nResult, t.api.GetApiErrorMsg(nResult))
 }
 
 // OnRspAuthenticate 认证响应回调
-func (s *TradeSpi) OnRspAuthenticate(pRspAuthenticateField *thost.CHSRspAuthenticateField, pRspInfo *thost.CHSRspInfoField, nRequestID int, bIsLast bool) {
+func (t *Trader) OnRspAuthenticate(pRspAuthenticateField *thost.CHSRspAuthenticateField, pRspInfo *thost.CHSRspInfoField, nRequestID int, bIsLast bool) {
 	log.Println("----------------------------------------")
 	if pRspInfo != nil && pRspInfo.ErrorID != 0 {
 		log.Printf("Trade: Authenticate failed, errorID=%d, errorMsg=%s",
@@ -90,7 +77,7 @@ func (s *TradeSpi) OnRspAuthenticate(pRspAuthenticateField *thost.CHSRspAuthenti
 }
 
 // OnRspUserLogin 登录响应回调
-func (s *TradeSpi) OnRspUserLogin(pRspUserLoginField *thost.CHSRspUserLoginField, pRspInfo *thost.CHSRspInfoField, nRequestID int, bIsLast bool) {
+func (t *Trader) OnRspUserLogin(pRspUserLoginField *thost.CHSRspUserLoginField, pRspInfo *thost.CHSRspInfoField, nRequestID int, bIsLast bool) {
 	log.Println("----------------------------------------")
 	if pRspInfo != nil && pRspInfo.ErrorID != 0 {
 		log.Printf("Trade: Login failed, errorID=%d, errorMsg=%s",
@@ -112,7 +99,7 @@ func (s *TradeSpi) OnRspUserLogin(pRspUserLoginField *thost.CHSRspUserLoginField
 }
 
 // OnRtnOrder 订单回报回调
-func (s *TradeSpi) OnRtnOrder(pOrder *thost.CHSOrderField) {
+func (t *Trader) OnRtnOrder(pOrder *thost.CHSOrderField) {
 	log.Println("----------------------------------------")
 	log.Printf("Trade: Order update")
 	log.Printf("  InstrumentID: %s", strToArrayToString(pOrder.InstrumentID))
@@ -128,7 +115,7 @@ func (s *TradeSpi) OnRtnOrder(pOrder *thost.CHSOrderField) {
 }
 
 // OnRtnTrade 成交回报回调
-func (s *TradeSpi) OnRtnTrade(pTrade *thost.CHSTradeField) {
+func (t *Trader) OnRtnTrade(pTrade *thost.CHSTradeField) {
 	log.Println("----------------------------------------")
 	log.Printf("Trade: Trade execution")
 	log.Printf("  TradeID: %s", strToArrayToString(pTrade.TradeID))
@@ -142,12 +129,17 @@ func (s *TradeSpi) OnRtnTrade(pTrade *thost.CHSTradeField) {
 }
 
 // OnRspError 错误响应回调
-func (s *TradeSpi) OnRspError(pRspInfo *thost.CHSRspInfoField, nRequestID int, bIsLast bool) {
+func (t *Trader) OnRspError(pRspInfo *thost.CHSRspInfoField, nRequestID int, bIsLast bool) {
 	log.Println("----------------------------------------")
 	if pRspInfo != nil {
 		log.Printf("Trade: Error response, errorID=%d, errorMsg=%s, requestID=%d",
 			pRspInfo.ErrorID, thost.BytesToGBK(pRspInfo.ErrorMsg[:]), nRequestID)
 	}
+}
+
+func (t *Trader) nextSeq() int {
+	t.seq++
+	return t.seq
 }
 
 // strToArrayToString 将固定长度数组转换为字符串
@@ -169,28 +161,24 @@ func main() {
 	log.Println("Go2UFT Trade Demo (Static Library Version)")
 	log.Println("========================================")
 
-	// 创建API
-	tdapi := uft.CreateTradeApi()
-
-	// 创建SPI
-	spi := NewTradeSpi(tdapi)
-	tdapi.RegisterSpi(spi)
+	trader := NewTrader()
+	trader.api.RegisterSpi(trader)
 
 	// 注册前置机
 	log.Printf("Connecting to: %s", FrontAddr)
-	tdapi.RegisterFront(FrontAddr)
+	trader.api.RegisterFront(FrontAddr)
 
 	// 显示API版本
-	log.Printf("API Version: %s", tdapi.GetApiVersion())
+	log.Printf("API Version: %s", trader.api.GetApiVersion())
 
 	// 初始化配置
 	initCfg := new(thost.CHSInitConfigField)
 	initCfg.APICheckVersion = thost.API_STRUCT_CHECK_VERSION
 	copy(initCfg.CommLicense[:], LicenseFile)
 
-	ret := tdapi.Init(initCfg, nil)
+	ret := trader.api.Init(initCfg, nil)
 	if ret != 0 {
-		log.Printf("Trade: Init failed with code: %d, %s", ret, tdapi.GetApiErrorMsg(ret))
+		log.Printf("Trade: Init failed with code: %d, %s", ret, trader.api.GetApiErrorMsg(ret))
 		return
 	}
 
@@ -198,7 +186,7 @@ func main() {
 
 	// 启动后台线程
 	go func() {
-		tdapi.Join()
+		trader.api.Join()
 	}()
 
 	// 等待信号
@@ -212,6 +200,6 @@ func main() {
 		log.Println("Timeout, shutting down...")
 	}
 
-	tdapi.ReleaseApi()
+	trader.api.ReleaseApi()
 	log.Println("Done")
 }

@@ -10,14 +10,19 @@ import (
 	"github.com/nandy33up/go2uft/uft"
 )
 
-type MarketSpi struct {
+const (
+	FrontAddr   = "tcp://101.71.12.149:8102"
+	LicenseFile = "license.dat"
+)
+
+type Quoter struct {
 	uft.BaseMdSpi
+	api thost.CHSMdApi
+	seq int
 }
 
-var mdapi thost.CHSMdApi
-
-func NewMarketSpi() *MarketSpi {
-	return &MarketSpi{}
+func NewQuoter() *Quoter {
+	return &Quoter{api: uft.CreateMdApi()}
 }
 
 type MarketSubscribes struct {
@@ -25,7 +30,7 @@ type MarketSubscribes struct {
 	InstrumentID string
 }
 
-func (s *MarketSpi) OnFrontConnected() {
+func (q *Quoter) OnFrontConnected() {
 	log.Println("Market: Front connected, subscribing to instruments...")
 	subscribes := []MarketSubscribes{
 		{"1", "588000"},
@@ -40,15 +45,15 @@ func (s *MarketSpi) OnFrontConnected() {
 		copy(pSubscribes[i].InstrumentID[:], s.InstrumentID[:])
 	}
 
-	mdapi.ReqDepthMarketDataSubscribe(pSubscribes, len(pSubscribes), 1)
+	q.api.ReqDepthMarketDataSubscribe(pSubscribes, len(pSubscribes), q.nextSeq())
 	log.Println("Market: Subscription request sent")
 }
 
-func (s *MarketSpi) OnFrontDisconnected(nResult int) {
+func (q *Quoter) OnFrontDisconnected(nResult int) {
 	log.Printf("Market: Front disconnected, result=%d", nResult)
 }
 
-func (s *MarketSpi) OnRtnDepthMarketData(pDepthMarketData *thost.CHSDepthMarketDataField) {
+func (q *Quoter) OnRtnDepthMarketData(pDepthMarketData *thost.CHSDepthMarketDataField) {
 	instID := string(pDepthMarketData.InstrumentID[:])
 	lastPrice := pDepthMarketData.LastPrice
 	bid1 := pDepthMarketData.BidPrice1
@@ -59,34 +64,36 @@ func (s *MarketSpi) OnRtnDepthMarketData(pDepthMarketData *thost.CHSDepthMarketD
 		instID, lastPrice, bid1, bidVol1, ask1, askVol1)
 }
 
+func (q *Quoter) nextSeq() int {
+	q.seq++
+	return q.seq
+}
+
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	log.Println("Go2UFT Market Demo (Static Library Version)")
 	log.Println("==========================================")
 
-	mdapi = uft.CreateMdApi()
+	quoter := NewQuoter()
+	quoter.api.RegisterSpi(quoter)
 
-	spi := NewMarketSpi()
-	mdapi.RegisterSpi(spi)
+	log.Printf("Connecting to: %s", FrontAddr)
+	quoter.api.RegisterFront(FrontAddr)
 
-	frontAddr := "tcp://101.71.12.149:8102"
-	log.Printf("Connecting to: %s", frontAddr)
-	mdapi.RegisterFront(frontAddr)
-
-	log.Printf("API Version: %s", mdapi.GetApiVersion())
+	log.Printf("API Version: %s", quoter.api.GetApiVersion())
 
 	initCfg := new(thost.CHSInitConfigField)
 	initCfg.APICheckVersion = thost.API_STRUCT_CHECK_VERSION
-	copy(initCfg.CommLicense[:], "license.dat")
-	ret := mdapi.Init(initCfg, nil)
+	copy(initCfg.CommLicense[:], LicenseFile)
+	ret := quoter.api.Init(initCfg, nil)
 	if ret != 0 {
-		log.Printf("Market: Init failed with code: %d", ret)
+		log.Printf("Market: Init failed with code: %d, %s", ret, quoter.api.GetApiErrorMsg(ret))
 	} else {
 		log.Println("Market: Waiting for connection...")
 	}
 
 	go func() {
-		mdapi.Join()
+		quoter.api.Join()
 	}()
 
 	exitSignal := make(chan os.Signal, 1)
@@ -94,6 +101,6 @@ func main() {
 
 	<-exitSignal
 	log.Println("Shutting down...")
-	mdapi.ReleaseApi()
+	quoter.api.ReleaseApi()
 	log.Println("Done")
 }
