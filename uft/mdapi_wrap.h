@@ -46,7 +46,7 @@ extern "C" {
     int hs_md_ReqDepthMarketDataCancel_static(uintptr_t api, void* pReq, int count, int requestID);
     int hs_md_ReqForQuoteSubscribe_static(uintptr_t api, void* pReq, int count, int requestID);
     int hs_md_ReqForQuoteCancel_static(uintptr_t api, void* pReq, int count, int requestID);
-    const char* hs_md_GetApiErrorMsg_static(int errorCode);
+    const char* hs_md_GetApiErrorMsg_static(uintptr_t api, int errorCode);
 }
 
 #endif

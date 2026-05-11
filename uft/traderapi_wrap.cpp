@@ -454,8 +454,10 @@ void hs_td_RegisterSpi_static(uintptr_t api, uintptr_t handle) {
     wrap->GetApi()->RegisterSpi(spi);
 }
 
-const char* hs_td_GetApiErrorMsg_static(int errorCode) {
-    return nullptr;
+const char* hs_td_GetApiErrorMsg_static(uintptr_t api, int errorCode) {
+    HSTradeApiWrap* wrap = reinterpret_cast<HSTradeApiWrap*>(api);
+    if (!wrap) return nullptr;
+    return wrap->GetApi()->GetApiErrorMsg(errorCode);
 }
 
 int hs_td_GetTradingDate_static(uintptr_t api) {

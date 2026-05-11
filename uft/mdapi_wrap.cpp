@@ -126,8 +126,10 @@ int hs_md_ReqForQuoteCancel_static(uintptr_t api, void* pReq, int count, int req
         reinterpret_cast<CHSReqForQuoteField*>(pReq), count, requestID);
 }
 
-const char* hs_md_GetApiErrorMsg_static(int errorCode) {
-    return nullptr;
+const char* hs_md_GetApiErrorMsg_static(uintptr_t api, int errorCode) {
+    HSMdApiWrap* wrap = reinterpret_cast<HSMdApiWrap*>(api);
+    if (!wrap) return nullptr;
+    return wrap->GetApi()->GetApiErrorMsg(errorCode);
 }
 
 }

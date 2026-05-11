@@ -2,6 +2,8 @@ package thost
 
 import (
 	"bytes"
+
+	"golang.org/x/text/encoding/simplifiedchinese"
 )
 
 // 基础整数类型
@@ -2585,6 +2587,11 @@ type HSTickStatusFlag byte
 type HSCombStrategyName [128]byte
 
 // String() 方法
+
+func BytesToGBK(bs []byte) string {
+	msg, _ := simplifiedchinese.GB18030.NewDecoder().Bytes(bytes.TrimRight(bs, "\x00"))
+	return string(msg)
+}
 
 func BytesToString(bs []byte) string {
 	return string(bytes.TrimRight(bs, "\x00"))

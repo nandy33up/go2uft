@@ -33,7 +33,7 @@ int hs_td_RegisterSubModel_static(uintptr_t api, int eSubType);
 int hs_td_RegisterFront_static(uintptr_t api, const char* frontAddress);
 int hs_td_RegisterFensServer_static(uintptr_t api, const char* fensAddress, const char* accountID);
 void hs_td_RegisterSpi_static(uintptr_t api, uintptr_t spi);
-const char* hs_td_GetApiErrorMsg_static(int errorCode);
+const char* hs_td_GetApiErrorMsg_static(uintptr_t api, int errorCode);
 int hs_td_GetTradingDate_static(uintptr_t api);
 int hs_td_BindSessionID_static(uintptr_t api, uint8_t nSessionID);
 int hs_td_ReqAuthenticate_static(uintptr_t api, void* pReqAuthenticateField, int nRequestID);
@@ -182,12 +182,14 @@ func (api *CTradeApi) RegisterSpi(pSpi thost.CHSTradeSpi) {
 }
 
 func (api *CTradeApi) GetApiErrorMsg(nErrorCode int) string {
-	cs := C.hs_td_GetApiErrorMsg_static(C.int(nErrorCode))
+	if nErrorCode < 0 {
+		nErrorCode = -nErrorCode
+	}
+	cs := C.hs_td_GetApiErrorMsg_static(C.uintptr_t(api.apiPtr), C.int(nErrorCode))
 	if cs == nil {
 		return ""
 	}
-	defer C.free(unsafe.Pointer(cs))
-	return C.GoString(cs)
+	return thost.BytesToGBK([]byte(C.GoString(cs)))
 }
 
 func (api *CTradeApi) GetTradingDate() int {

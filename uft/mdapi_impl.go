@@ -33,7 +33,7 @@ int hs_md_ReqDepthMarketDataSubscribe_static(uintptr_t api, void* pReq, int coun
 int hs_md_ReqDepthMarketDataCancel_static(uintptr_t api, void* pReq, int count, int requestID);
 int hs_md_ReqForQuoteSubscribe_static(uintptr_t api, void* pReq, int count, int requestID);
 int hs_md_ReqForQuoteCancel_static(uintptr_t api, void* pReq, int count, int requestID);
-const char* hs_md_GetApiErrorMsg_static(int errorCode);
+const char* hs_md_GetApiErrorMsg_static(uintptr_t api, int errorCode);
 */
 import "C"
 import (
@@ -160,12 +160,14 @@ func (api *CMdApi) ReqForQuoteCancel(pReqForQuoteCancel []thost.CHSReqForQuoteFi
 }
 
 func (api *CMdApi) GetApiErrorMsg(nErrorCode int) string {
-	cs := C.hs_md_GetApiErrorMsg_static(C.int(nErrorCode))
+	if nErrorCode < 0 {
+		nErrorCode = -nErrorCode
+	}
+	cs := C.hs_md_GetApiErrorMsg_static(C.uintptr_t(api.apiPtr), C.int(nErrorCode))
 	if cs == nil {
 		return ""
 	}
-	defer C.free(unsafe.Pointer(cs))
-	return C.GoString(cs)
+	return thost.BytesToGBK([]byte(C.GoString(cs)))
 }
 
 //export uft_quote_OnFrontConnected
