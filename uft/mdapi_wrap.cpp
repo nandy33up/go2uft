@@ -1,46 +1,46 @@
 #include "mdapi_wrap.h"
 
 extern "C" {
-    extern void go_md_OnFrontConnected(uintptr_t handle);
-    extern void go_md_OnFrontDisconnected(uintptr_t handle, int reason);
-    extern void go_md_OnRspDepthMarketDataSubscribe(uintptr_t handle, void* pRspInfo, int requestID, bool isLast);
-    extern void go_md_OnRspDepthMarketDataCancel(uintptr_t handle, void* pRspInfo, int requestID, bool isLast);
-    extern void go_md_OnRtnDepthMarketData(uintptr_t handle, void* pDepthMarketData);
-    extern void go_md_OnRspForQuoteSubscribe(uintptr_t handle, void* pRspInfo, int requestID, bool isLast);
-    extern void go_md_OnRspForQuoteCancel(uintptr_t handle, void* pRspInfo, int requestID, bool isLast);
-    extern void go_md_OnRtnForQuote(uintptr_t handle, void* pForQuote);
+    extern void uft_quote_OnFrontConnected(uintptr_t handle);
+    extern void uft_quote_OnFrontDisconnected(uintptr_t handle, int reason);
+    extern void uft_quote_OnRspDepthMarketDataSubscribe(uintptr_t handle, void* pRspInfo, int requestID, bool isLast);
+    extern void uft_quote_OnRspDepthMarketDataCancel(uintptr_t handle, void* pRspInfo, int requestID, bool isLast);
+    extern void uft_quote_OnRtnDepthMarketData(uintptr_t handle, void* pDepthMarketData);
+    extern void uft_quote_OnRspForQuoteSubscribe(uintptr_t handle, void* pRspInfo, int requestID, bool isLast);
+    extern void uft_quote_OnRspForQuoteCancel(uintptr_t handle, void* pRspInfo, int requestID, bool isLast);
+    extern void uft_quote_OnRtnForQuote(uintptr_t handle, void* pForQuote);
 }
 
 void HSMdSpiWrap::OnFrontConnected() {
-    go_md_OnFrontConnected(m_handle);
+    uft_quote_OnFrontConnected(m_handle);
 }
 
 void HSMdSpiWrap::OnFrontDisconnected(int nResult) {
-    go_md_OnFrontDisconnected(m_handle, nResult);
+    uft_quote_OnFrontDisconnected(m_handle, nResult);
 }
 
 void HSMdSpiWrap::OnRspDepthMarketDataSubscribe(CHSRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-    go_md_OnRspDepthMarketDataSubscribe(m_handle, pRspInfo, nRequestID, bIsLast);
+    uft_quote_OnRspDepthMarketDataSubscribe(m_handle, pRspInfo, nRequestID, bIsLast);
 }
 
 void HSMdSpiWrap::OnRspDepthMarketDataCancel(CHSRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-    go_md_OnRspDepthMarketDataCancel(m_handle, pRspInfo, nRequestID, bIsLast);
+    uft_quote_OnRspDepthMarketDataCancel(m_handle, pRspInfo, nRequestID, bIsLast);
 }
 
 void HSMdSpiWrap::OnRtnDepthMarketData(CHSDepthMarketDataField *pDepthMarketData) {
-    go_md_OnRtnDepthMarketData(m_handle, pDepthMarketData);
+    uft_quote_OnRtnDepthMarketData(m_handle, pDepthMarketData);
 }
 
 void HSMdSpiWrap::OnRspForQuoteSubscribe(CHSRspInfoField* pRspInfo, int nRequestID, bool bIsLast) {
-    go_md_OnRspForQuoteSubscribe(m_handle, pRspInfo, nRequestID, bIsLast);
+    uft_quote_OnRspForQuoteSubscribe(m_handle, pRspInfo, nRequestID, bIsLast);
 }
 
 void HSMdSpiWrap::OnRspForQuoteCancel(CHSRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-    go_md_OnRspForQuoteCancel(m_handle, pRspInfo, nRequestID, bIsLast);
+    uft_quote_OnRspForQuoteCancel(m_handle, pRspInfo, nRequestID, bIsLast);
 }
 
 void HSMdSpiWrap::OnRtnForQuote(CHSForQuoteField *pForQuote) {
-    go_md_OnRtnForQuote(m_handle, pForQuote);
+    uft_quote_OnRtnForQuote(m_handle, pForQuote);
 }
 
 extern "C" {

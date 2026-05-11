@@ -112,6 +112,7 @@ func (api *CMdApi) RegisterFensServer(pszFensAddress string, pszAccountID string
 
 func (api *CMdApi) RegisterSpi(pSpi thost.CHSMdSpi) {
 	api.spi = pSpi
+	C.hs_md_RegisterSpi_static(C.uintptr_t(api.apiPtr), C.uintptr_t(api.handle))
 }
 
 func (api *CMdApi) ReqDepthMarketDataSubscribe(pReqDepthMarketDataSubscribe []thost.CHSReqDepthMarketDataField, nCount int, nRequestID int) int {
@@ -167,50 +168,50 @@ func (api *CMdApi) GetApiErrorMsg(nErrorCode int) string {
 	return C.GoString(cs)
 }
 
-//export hs_md_callback_OnFrontConnected
-func hs_md_callback_OnFrontConnected(v uintptr) {
+//export uft_quote_OnFrontConnected
+func uft_quote_OnFrontConnected(v uintptr) {
 	api := cgo.Handle(v).Value().(*CMdApi)
 	api.spi.OnFrontConnected()
 }
 
-//export hs_md_callback_OnFrontDisconnected
-func hs_md_callback_OnFrontDisconnected(v uintptr, nReason C.int) {
+//export uft_quote_OnFrontDisconnected
+func uft_quote_OnFrontDisconnected(v uintptr, nReason C.int) {
 	api := cgo.Handle(v).Value().(*CMdApi)
 	api.spi.OnFrontDisconnected(int(nReason))
 }
 
-//export hs_md_callback_OnRspDepthMarketDataSubscribe
-func hs_md_callback_OnRspDepthMarketDataSubscribe(v uintptr, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_quote_OnRspDepthMarketDataSubscribe
+func uft_quote_OnRspDepthMarketDataSubscribe(v uintptr, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CMdApi)
 	api.spi.OnRspDepthMarketDataSubscribe((*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_md_callback_OnRspDepthMarketDataCancel
-func hs_md_callback_OnRspDepthMarketDataCancel(v uintptr, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_quote_OnRspDepthMarketDataCancel
+func uft_quote_OnRspDepthMarketDataCancel(v uintptr, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CMdApi)
 	api.spi.OnRspDepthMarketDataCancel((*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_md_callback_OnRtnDepthMarketData
-func hs_md_callback_OnRtnDepthMarketData(v uintptr, pDepthMarketData *C.struct_CHSDepthMarketDataField) {
+//export uft_quote_OnRtnDepthMarketData
+func uft_quote_OnRtnDepthMarketData(v uintptr, pDepthMarketData *C.struct_CHSDepthMarketDataField) {
 	api := cgo.Handle(v).Value().(*CMdApi)
 	api.spi.OnRtnDepthMarketData((*thost.CHSDepthMarketDataField)(unsafe.Pointer(pDepthMarketData)))
 }
 
-//export hs_md_callback_OnRspForQuoteSubscribe
-func hs_md_callback_OnRspForQuoteSubscribe(v uintptr, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_quote_OnRspForQuoteSubscribe
+func uft_quote_OnRspForQuoteSubscribe(v uintptr, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CMdApi)
 	api.spi.OnRspForQuoteSubscribe((*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_md_callback_OnRspForQuoteCancel
-func hs_md_callback_OnRspForQuoteCancel(v uintptr, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_quote_OnRspForQuoteCancel
+func uft_quote_OnRspForQuoteCancel(v uintptr, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CMdApi)
 	api.spi.OnRspForQuoteCancel((*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_md_callback_OnRtnForQuote
-func hs_md_callback_OnRtnForQuote(v uintptr, pForQuote *C.struct_CHSForQuoteField) {
+//export uft_quote_OnRtnForQuote
+func uft_quote_OnRtnForQuote(v uintptr, pForQuote *C.struct_CHSForQuoteField) {
 	api := cgo.Handle(v).Value().(*CMdApi)
 	api.spi.OnRtnForQuote((*thost.CHSForQuoteField)(unsafe.Pointer(pForQuote)))
 }

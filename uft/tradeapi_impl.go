@@ -442,470 +442,470 @@ func (api *CTradeApi) ReqQryOptCombStrategy(pReqQryOptCombStrategy *thost.CHSReq
 	return int(C.hs_td_ReqQryOptCombStrategy_static(C.uintptr_t(api.apiPtr), unsafe.Pointer(pReqQryOptCombStrategy), C.int(nRequestID)))
 }
 
-//export hs_trade_callback_OnFrontConnected
-func hs_trade_callback_OnFrontConnected(v uintptr) {
+//export uft_trade_OnFrontConnected
+func uft_trade_OnFrontConnected(v uintptr) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnFrontConnected()
 }
 
-//export hs_trade_callback_OnFrontDisconnected
-func hs_trade_callback_OnFrontDisconnected(v uintptr, nReason C.int) {
+//export uft_trade_OnFrontDisconnected
+func uft_trade_OnFrontDisconnected(v uintptr, nReason C.int) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnFrontDisconnected(int(nReason))
 }
 
-//export hs_trade_callback_OnRspAuthenticate
-func hs_trade_callback_OnRspAuthenticate(v uintptr, pRspAuthenticateField *C.struct_CHSRspAuthenticateField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspAuthenticate
+func uft_trade_OnRspAuthenticate(v uintptr, pRspAuthenticateField *C.struct_CHSRspAuthenticateField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspAuthenticate((*thost.CHSRspAuthenticateField)(unsafe.Pointer(pRspAuthenticateField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspSubmitUserSystemInfo
-func hs_trade_callback_OnRspSubmitUserSystemInfo(v uintptr, pRspUserSystemInfoField *C.struct_CHSRspUserSystemInfoField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspSubmitUserSystemInfo
+func uft_trade_OnRspSubmitUserSystemInfo(v uintptr, pRspUserSystemInfoField *C.struct_CHSRspUserSystemInfoField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspSubmitUserSystemInfo((*thost.CHSRspUserSystemInfoField)(unsafe.Pointer(pRspUserSystemInfoField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspUserLogin
-func hs_trade_callback_OnRspUserLogin(v uintptr, pRspUserLoginField *C.struct_CHSRspUserLoginField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspUserLogin
+func uft_trade_OnRspUserLogin(v uintptr, pRspUserLoginField *C.struct_CHSRspUserLoginField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspUserLogin((*thost.CHSRspUserLoginField)(unsafe.Pointer(pRspUserLoginField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspUserPasswordUpdate
-func hs_trade_callback_OnRspUserPasswordUpdate(v uintptr, pRspUserPasswordUpdateField *C.struct_CHSRspUserPasswordUpdateField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspUserPasswordUpdate
+func uft_trade_OnRspUserPasswordUpdate(v uintptr, pRspUserPasswordUpdateField *C.struct_CHSRspUserPasswordUpdateField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspUserPasswordUpdate((*thost.CHSRspUserPasswordUpdateField)(unsafe.Pointer(pRspUserPasswordUpdateField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspErrorOrderInsert
-func hs_trade_callback_OnRspErrorOrderInsert(v uintptr, pRspOrderInsertField *C.struct_CHSRspOrderInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspErrorOrderInsert
+func uft_trade_OnRspErrorOrderInsert(v uintptr, pRspOrderInsertField *C.struct_CHSRspOrderInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspErrorOrderInsert((*thost.CHSRspOrderInsertField)(unsafe.Pointer(pRspOrderInsertField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspOrderAction
-func hs_trade_callback_OnRspOrderAction(v uintptr, pRspOrderActionField *C.struct_CHSRspOrderActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspOrderAction
+func uft_trade_OnRspOrderAction(v uintptr, pRspOrderActionField *C.struct_CHSRspOrderActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspOrderAction((*thost.CHSRspOrderActionField)(unsafe.Pointer(pRspOrderActionField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspErrorExerciseOrderInsert
-func hs_trade_callback_OnRspErrorExerciseOrderInsert(v uintptr, pRspExerciseOrderInsertField *C.struct_CHSRspExerciseOrderInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspErrorExerciseOrderInsert
+func uft_trade_OnRspErrorExerciseOrderInsert(v uintptr, pRspExerciseOrderInsertField *C.struct_CHSRspExerciseOrderInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspErrorExerciseOrderInsert((*thost.CHSRspExerciseOrderInsertField)(unsafe.Pointer(pRspExerciseOrderInsertField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspExerciseOrderAction
-func hs_trade_callback_OnRspExerciseOrderAction(v uintptr, pRspExerciseOrderActionField *C.struct_CHSRspExerciseOrderActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspExerciseOrderAction
+func uft_trade_OnRspExerciseOrderAction(v uintptr, pRspExerciseOrderActionField *C.struct_CHSRspExerciseOrderActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspExerciseOrderAction((*thost.CHSRspExerciseOrderActionField)(unsafe.Pointer(pRspExerciseOrderActionField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspErrorLockInsert
-func hs_trade_callback_OnRspErrorLockInsert(v uintptr, pRspLockInsertField *C.struct_CHSRspLockInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspErrorLockInsert
+func uft_trade_OnRspErrorLockInsert(v uintptr, pRspLockInsertField *C.struct_CHSRspLockInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspErrorLockInsert((*thost.CHSRspLockInsertField)(unsafe.Pointer(pRspLockInsertField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspForQuoteInsert
-func hs_trade_callback_OnRspForQuoteInsert(v uintptr, pRspForQuoteInsertField *C.struct_CHSRspForQuoteInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspForQuoteInsert
+func uft_trade_OnRspForQuoteInsert(v uintptr, pRspForQuoteInsertField *C.struct_CHSRspForQuoteInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspForQuoteInsert((*thost.CHSRspForQuoteInsertField)(unsafe.Pointer(pRspForQuoteInsertField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspErrorQuoteInsert
-func hs_trade_callback_OnRspErrorQuoteInsert(v uintptr, pRspQuoteInsertField *C.struct_CHSRspQuoteInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspErrorQuoteInsert
+func uft_trade_OnRspErrorQuoteInsert(v uintptr, pRspQuoteInsertField *C.struct_CHSRspQuoteInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspErrorQuoteInsert((*thost.CHSRspQuoteInsertField)(unsafe.Pointer(pRspQuoteInsertField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQuoteAction
-func hs_trade_callback_OnRspQuoteAction(v uintptr, pRspQuoteActionField *C.struct_CHSRspQuoteActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQuoteAction
+func uft_trade_OnRspQuoteAction(v uintptr, pRspQuoteActionField *C.struct_CHSRspQuoteActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQuoteAction((*thost.CHSRspQuoteActionField)(unsafe.Pointer(pRspQuoteActionField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspErrorCombActionInsert
-func hs_trade_callback_OnRspErrorCombActionInsert(v uintptr, pRspCombActionInsertField *C.struct_CHSRspCombActionInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspErrorCombActionInsert
+func uft_trade_OnRspErrorCombActionInsert(v uintptr, pRspCombActionInsertField *C.struct_CHSRspCombActionInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspErrorCombActionInsert((*thost.CHSRspCombActionInsertField)(unsafe.Pointer(pRspCombActionInsertField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQueryMaxOrderVolume
-func hs_trade_callback_OnRspQueryMaxOrderVolume(v uintptr, pRspQueryMaxOrderVolumeField *C.struct_CHSRspQueryMaxOrderVolumeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQueryMaxOrderVolume
+func uft_trade_OnRspQueryMaxOrderVolume(v uintptr, pRspQueryMaxOrderVolumeField *C.struct_CHSRspQueryMaxOrderVolumeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQueryMaxOrderVolume((*thost.CHSRspQueryMaxOrderVolumeField)(unsafe.Pointer(pRspQueryMaxOrderVolumeField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryLockVolume
-func hs_trade_callback_OnRspQryLockVolume(v uintptr, pRspQryLockVolumeField *C.struct_CHSRspQryLockVolumeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryLockVolume
+func uft_trade_OnRspQryLockVolume(v uintptr, pRspQryLockVolumeField *C.struct_CHSRspQryLockVolumeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryLockVolume((*thost.CHSRspQryLockVolumeField)(unsafe.Pointer(pRspQryLockVolumeField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQueryExerciseVolume
-func hs_trade_callback_OnRspQueryExerciseVolume(v uintptr, pRspQueryExerciseVolumeField *C.struct_CHSRspQueryExerciseVolumeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQueryExerciseVolume
+func uft_trade_OnRspQueryExerciseVolume(v uintptr, pRspQueryExerciseVolumeField *C.struct_CHSRspQueryExerciseVolumeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQueryExerciseVolume((*thost.CHSRspQueryExerciseVolumeField)(unsafe.Pointer(pRspQueryExerciseVolumeField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryCombVolume
-func hs_trade_callback_OnRspQryCombVolume(v uintptr, pRspQryCombVolumeField *C.struct_CHSRspQryCombVolumeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryCombVolume
+func uft_trade_OnRspQryCombVolume(v uintptr, pRspQryCombVolumeField *C.struct_CHSRspQryCombVolumeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryCombVolume((*thost.CHSRspQryCombVolumeField)(unsafe.Pointer(pRspQryCombVolumeField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryPosition
-func hs_trade_callback_OnRspQryPosition(v uintptr, pRspQryPositionField *C.struct_CHSRspQryPositionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryPosition
+func uft_trade_OnRspQryPosition(v uintptr, pRspQryPositionField *C.struct_CHSRspQryPositionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryPosition((*thost.CHSRspQryPositionField)(unsafe.Pointer(pRspQryPositionField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryTradingAccount
-func hs_trade_callback_OnRspQryTradingAccount(v uintptr, pRspQryTradingAccountField *C.struct_CHSRspQryTradingAccountField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryTradingAccount
+func uft_trade_OnRspQryTradingAccount(v uintptr, pRspQryTradingAccountField *C.struct_CHSRspQryTradingAccountField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryTradingAccount((*thost.CHSRspQryTradingAccountField)(unsafe.Pointer(pRspQryTradingAccountField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryOrder
-func hs_trade_callback_OnRspQryOrder(v uintptr, pRspQryOrderField *C.struct_CHSOrderField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryOrder
+func uft_trade_OnRspQryOrder(v uintptr, pRspQryOrderField *C.struct_CHSOrderField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryOrder((*thost.CHSOrderField)(unsafe.Pointer(pRspQryOrderField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryTrade
-func hs_trade_callback_OnRspQryTrade(v uintptr, pRspQryTradeField *C.struct_CHSTradeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryTrade
+func uft_trade_OnRspQryTrade(v uintptr, pRspQryTradeField *C.struct_CHSTradeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryTrade((*thost.CHSTradeField)(unsafe.Pointer(pRspQryTradeField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryExercise
-func hs_trade_callback_OnRspQryExercise(v uintptr, pRspQryExerciseField *C.struct_CHSExerciseField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryExercise
+func uft_trade_OnRspQryExercise(v uintptr, pRspQryExerciseField *C.struct_CHSExerciseField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryExercise((*thost.CHSExerciseField)(unsafe.Pointer(pRspQryExerciseField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryLock
-func hs_trade_callback_OnRspQryLock(v uintptr, pRspQryLockField *C.struct_CHSLockField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryLock
+func uft_trade_OnRspQryLock(v uintptr, pRspQryLockField *C.struct_CHSLockField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryLock((*thost.CHSLockField)(unsafe.Pointer(pRspQryLockField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryCombAction
-func hs_trade_callback_OnRspQryCombAction(v uintptr, pRspQryCombActionField *C.struct_CHSCombActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryCombAction
+func uft_trade_OnRspQryCombAction(v uintptr, pRspQryCombActionField *C.struct_CHSCombActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryCombAction((*thost.CHSCombActionField)(unsafe.Pointer(pRspQryCombActionField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryForQuote
-func hs_trade_callback_OnRspQryForQuote(v uintptr, pRspQryForQuoteField *C.struct_CHSForQuoteField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryForQuote
+func uft_trade_OnRspQryForQuote(v uintptr, pRspQryForQuoteField *C.struct_CHSForQuoteField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryForQuote((*thost.CHSForQuoteField)(unsafe.Pointer(pRspQryForQuoteField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryQuote
-func hs_trade_callback_OnRspQryQuote(v uintptr, pRspQryQuoteField *C.struct_CHSQuoteField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryQuote
+func uft_trade_OnRspQryQuote(v uintptr, pRspQryQuoteField *C.struct_CHSQuoteField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryQuote((*thost.CHSQuoteField)(unsafe.Pointer(pRspQryQuoteField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryPositionCombineDetail
-func hs_trade_callback_OnRspQryPositionCombineDetail(v uintptr, pRspQryPositionCombineDetailField *C.struct_CHSRspQryPositionCombineDetailField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryPositionCombineDetail
+func uft_trade_OnRspQryPositionCombineDetail(v uintptr, pRspQryPositionCombineDetailField *C.struct_CHSRspQryPositionCombineDetailField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryPositionCombineDetail((*thost.CHSRspQryPositionCombineDetailField)(unsafe.Pointer(pRspQryPositionCombineDetailField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryInstrument
-func hs_trade_callback_OnRspQryInstrument(v uintptr, pRspQryInstrumentField *C.struct_CHSRspQryInstrumentField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryInstrument
+func uft_trade_OnRspQryInstrument(v uintptr, pRspQryInstrumentField *C.struct_CHSRspQryInstrumentField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryInstrument((*thost.CHSRspQryInstrumentField)(unsafe.Pointer(pRspQryInstrumentField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryCoveredShort
-func hs_trade_callback_OnRspQryCoveredShort(v uintptr, pRspQryCoveredShortField *C.struct_CHSRspQryCoveredShortField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryCoveredShort
+func uft_trade_OnRspQryCoveredShort(v uintptr, pRspQryCoveredShortField *C.struct_CHSRspQryCoveredShortField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryCoveredShort((*thost.CHSRspQryCoveredShortField)(unsafe.Pointer(pRspQryCoveredShortField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryExerciseAssign
-func hs_trade_callback_OnRspQryExerciseAssign(v uintptr, pRspQryExerciseAssignField *C.struct_CHSRspQryExerciseAssignField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryExerciseAssign
+func uft_trade_OnRspQryExerciseAssign(v uintptr, pRspQryExerciseAssignField *C.struct_CHSRspQryExerciseAssignField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryExerciseAssign((*thost.CHSRspQryExerciseAssignField)(unsafe.Pointer(pRspQryExerciseAssignField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspTransfer
-func hs_trade_callback_OnRspTransfer(v uintptr, pRspTransferField *C.struct_CHSRspTransferField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspTransfer
+func uft_trade_OnRspTransfer(v uintptr, pRspTransferField *C.struct_CHSRspTransferField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspTransfer((*thost.CHSRspTransferField)(unsafe.Pointer(pRspTransferField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryTransfer
-func hs_trade_callback_OnRspQryTransfer(v uintptr, pRspQryTransferField *C.struct_CHSRspQryTransferField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryTransfer
+func uft_trade_OnRspQryTransfer(v uintptr, pRspQryTransferField *C.struct_CHSRspQryTransferField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryTransfer((*thost.CHSRspQryTransferField)(unsafe.Pointer(pRspQryTransferField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQueryBankBalance
-func hs_trade_callback_OnRspQueryBankBalance(v uintptr, pRspQueryBankBalanceField *C.struct_CHSRspQueryBankBalanceField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQueryBankBalance
+func uft_trade_OnRspQueryBankBalance(v uintptr, pRspQueryBankBalanceField *C.struct_CHSRspQueryBankBalanceField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQueryBankBalance((*thost.CHSRspQueryBankBalanceField)(unsafe.Pointer(pRspQueryBankBalanceField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQueryBankAccount
-func hs_trade_callback_OnRspQueryBankAccount(v uintptr, pRspQueryBankAccountField *C.struct_CHSRspQueryBankAccountField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQueryBankAccount
+func uft_trade_OnRspQueryBankAccount(v uintptr, pRspQueryBankAccountField *C.struct_CHSRspQueryBankAccountField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQueryBankAccount((*thost.CHSRspQueryBankAccountField)(unsafe.Pointer(pRspQueryBankAccountField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspMultiCentreFundTrans
-func hs_trade_callback_OnRspMultiCentreFundTrans(v uintptr, pRspMultiCentreFundTransferField *C.struct_CHSRspMultiCentreFundTransField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspMultiCentreFundTrans
+func uft_trade_OnRspMultiCentreFundTrans(v uintptr, pRspMultiCentreFundTransferField *C.struct_CHSRspMultiCentreFundTransField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspMultiCentreFundTrans((*thost.CHSRspMultiCentreFundTransField)(unsafe.Pointer(pRspMultiCentreFundTransferField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQueryBillContent
-func hs_trade_callback_OnRspQueryBillContent(v uintptr, pRspQueryBillContentField *C.struct_CHSRspQueryBillContentField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQueryBillContent
+func uft_trade_OnRspQueryBillContent(v uintptr, pRspQueryBillContentField *C.struct_CHSRspQueryBillContentField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQueryBillContent((*thost.CHSRspQueryBillContentField)(unsafe.Pointer(pRspQueryBillContentField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspBillConfirm
-func hs_trade_callback_OnRspBillConfirm(v uintptr, pRspBillConfirmField *C.struct_CHSRspBillConfirmField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspBillConfirm
+func uft_trade_OnRspBillConfirm(v uintptr, pRspBillConfirmField *C.struct_CHSRspBillConfirmField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspBillConfirm((*thost.CHSRspBillConfirmField)(unsafe.Pointer(pRspBillConfirmField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryMargin
-func hs_trade_callback_OnRspQryMargin(v uintptr, pRspQryMarginField *C.struct_CHSRspQryMarginField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryMargin
+func uft_trade_OnRspQryMargin(v uintptr, pRspQryMarginField *C.struct_CHSRspQryMarginField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryMargin((*thost.CHSRspQryMarginField)(unsafe.Pointer(pRspQryMarginField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryCommission
-func hs_trade_callback_OnRspQryCommission(v uintptr, pRspQryCommissionField *C.struct_CHSRspQryCommissionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryCommission
+func uft_trade_OnRspQryCommission(v uintptr, pRspQryCommissionField *C.struct_CHSRspQryCommissionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryCommission((*thost.CHSRspQryCommissionField)(unsafe.Pointer(pRspQryCommissionField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryPositionDetail
-func hs_trade_callback_OnRspQryPositionDetail(v uintptr, pRspQryPositionDetailField *C.struct_CHSRspQryPositionDetailField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryPositionDetail
+func uft_trade_OnRspQryPositionDetail(v uintptr, pRspQryPositionDetailField *C.struct_CHSRspQryPositionDetailField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryPositionDetail((*thost.CHSRspQryPositionDetailField)(unsafe.Pointer(pRspQryPositionDetailField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryExchangeRate
-func hs_trade_callback_OnRspQryExchangeRate(v uintptr, pRspQryExchangeRateField *C.struct_CHSRspQryExchangeRateField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryExchangeRate
+func uft_trade_OnRspQryExchangeRate(v uintptr, pRspQryExchangeRateField *C.struct_CHSRspQryExchangeRateField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryExchangeRate((*thost.CHSRspQryExchangeRateField)(unsafe.Pointer(pRspQryExchangeRateField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQrySysConfig
-func hs_trade_callback_OnRspQrySysConfig(v uintptr, pRspQrySysConfigField *C.struct_CHSRspQrySysConfigField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQrySysConfig
+func uft_trade_OnRspQrySysConfig(v uintptr, pRspQrySysConfigField *C.struct_CHSRspQrySysConfigField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQrySysConfig((*thost.CHSRspQrySysConfigField)(unsafe.Pointer(pRspQrySysConfigField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryDepthMarketData
-func hs_trade_callback_OnRspQryDepthMarketData(v uintptr, pRspQryDepthMarketDataField *C.struct_CHSDepthMarketDataField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryDepthMarketData
+func uft_trade_OnRspQryDepthMarketData(v uintptr, pRspQryDepthMarketDataField *C.struct_CHSDepthMarketDataField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryDepthMarketData((*thost.CHSDepthMarketDataField)(unsafe.Pointer(pRspQryDepthMarketDataField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspFundTrans
-func hs_trade_callback_OnRspFundTrans(v uintptr, pRspFundTransferField *C.struct_CHSRspFundTransField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspFundTrans
+func uft_trade_OnRspFundTrans(v uintptr, pRspFundTransferField *C.struct_CHSRspFundTransField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspFundTrans((*thost.CHSRspFundTransField)(unsafe.Pointer(pRspFundTransferField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryFundTrans
-func hs_trade_callback_OnRspQryFundTrans(v uintptr, pRspQryFundTransField *C.struct_CHSRspQryFundTransField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryFundTrans
+func uft_trade_OnRspQryFundTrans(v uintptr, pRspQryFundTransField *C.struct_CHSRspQryFundTransField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryFundTrans((*thost.CHSRspQryFundTransField)(unsafe.Pointer(pRspQryFundTransField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryClientNotice
-func hs_trade_callback_OnRspQryClientNotice(v uintptr, pRspQryClientNoticeField *C.struct_CHSClientNoticeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryClientNotice
+func uft_trade_OnRspQryClientNotice(v uintptr, pRspQryClientNoticeField *C.struct_CHSClientNoticeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryClientNotice((*thost.CHSClientNoticeField)(unsafe.Pointer(pRspQryClientNoticeField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryOptUnderly
-func hs_trade_callback_OnRspQryOptUnderly(v uintptr, pRspQryOptUnderlyField *C.struct_CHSRspQryOptUnderlyField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryOptUnderly
+func uft_trade_OnRspQryOptUnderly(v uintptr, pRspQryOptUnderlyField *C.struct_CHSRspQryOptUnderlyField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryOptUnderly((*thost.CHSRspQryOptUnderlyField)(unsafe.Pointer(pRspQryOptUnderlyField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQrySecuDepthMarket
-func hs_trade_callback_OnRspQrySecuDepthMarket(v uintptr, pRspQrySecuDepthMarketField *C.struct_CHSRspQrySecuDepthMarketField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQrySecuDepthMarket
+func uft_trade_OnRspQrySecuDepthMarket(v uintptr, pRspQrySecuDepthMarketField *C.struct_CHSRspQrySecuDepthMarketField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQrySecuDepthMarket((*thost.CHSRspQrySecuDepthMarketField)(unsafe.Pointer(pRspQrySecuDepthMarketField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryHistOrder
-func hs_trade_callback_OnRspQryHistOrder(v uintptr, pRspQryHistOrderField *C.struct_CHSOrderField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryHistOrder
+func uft_trade_OnRspQryHistOrder(v uintptr, pRspQryHistOrderField *C.struct_CHSOrderField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryHistOrder((*thost.CHSOrderField)(unsafe.Pointer(pRspQryHistOrderField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryHistTrade
-func hs_trade_callback_OnRspQryHistTrade(v uintptr, pRspQryHistTradeField *C.struct_CHSTradeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryHistTrade
+func uft_trade_OnRspQryHistTrade(v uintptr, pRspQryHistTradeField *C.struct_CHSTradeField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryHistTrade((*thost.CHSTradeField)(unsafe.Pointer(pRspQryHistTradeField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryWithdrawFund
-func hs_trade_callback_OnRspQryWithdrawFund(v uintptr, pRspQryWithdrawFundField *C.struct_CHSRspQryWithdrawFundField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryWithdrawFund
+func uft_trade_OnRspQryWithdrawFund(v uintptr, pRspQryWithdrawFundField *C.struct_CHSRspQryWithdrawFundField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryWithdrawFund((*thost.CHSRspQryWithdrawFundField)(unsafe.Pointer(pRspQryWithdrawFundField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryCombInstrument
-func hs_trade_callback_OnRspQryCombInstrument(v uintptr, pRspQryCombInstrumentField *C.struct_CHSRspQryCombInstrumentField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryCombInstrument
+func uft_trade_OnRspQryCombInstrument(v uintptr, pRspQryCombInstrumentField *C.struct_CHSRspQryCombInstrumentField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryCombInstrument((*thost.CHSRspQryCombInstrumentField)(unsafe.Pointer(pRspQryCombInstrumentField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQrySeatID
-func hs_trade_callback_OnRspQrySeatID(v uintptr, pRspQrySeatIDField *C.struct_CHSRspQrySeatIDField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQrySeatID
+func uft_trade_OnRspQrySeatID(v uintptr, pRspQrySeatIDField *C.struct_CHSRspQrySeatIDField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQrySeatID((*thost.CHSRspQrySeatIDField)(unsafe.Pointer(pRspQrySeatIDField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspOptionSelfClose
-func hs_trade_callback_OnRspOptionSelfClose(v uintptr, pRspOptionSelfCloseField *C.struct_CHSRspOptionSelfCloseField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspOptionSelfClose
+func uft_trade_OnRspOptionSelfClose(v uintptr, pRspOptionSelfCloseField *C.struct_CHSRspOptionSelfCloseField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspOptionSelfClose((*thost.CHSRspOptionSelfCloseField)(unsafe.Pointer(pRspOptionSelfCloseField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspOptionSelfCloseAction
-func hs_trade_callback_OnRspOptionSelfCloseAction(v uintptr, pRspOptionSelfCloseActionField *C.struct_CHSRspOptionSelfCloseActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspOptionSelfCloseAction
+func uft_trade_OnRspOptionSelfCloseAction(v uintptr, pRspOptionSelfCloseActionField *C.struct_CHSRspOptionSelfCloseActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspOptionSelfCloseAction((*thost.CHSRspOptionSelfCloseActionField)(unsafe.Pointer(pRspOptionSelfCloseActionField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryOptionSelfCloseResult
-func hs_trade_callback_OnRspQryOptionSelfCloseResult(v uintptr, pRspQryOptionSelfCloseResultField *C.struct_CHSRspQryOptionSelfCloseResultField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryOptionSelfCloseResult
+func uft_trade_OnRspQryOptionSelfCloseResult(v uintptr, pRspQryOptionSelfCloseResultField *C.struct_CHSRspQryOptionSelfCloseResultField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryOptionSelfCloseResult((*thost.CHSRspQryOptionSelfCloseResultField)(unsafe.Pointer(pRspQryOptionSelfCloseResultField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryOptionSelfClose
-func hs_trade_callback_OnRspQryOptionSelfClose(v uintptr, pRspQryOptionSelfCloseField *C.struct_CHSOptionSelfCloseField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryOptionSelfClose
+func uft_trade_OnRspQryOptionSelfClose(v uintptr, pRspQryOptionSelfCloseField *C.struct_CHSOptionSelfCloseField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryOptionSelfClose((*thost.CHSOptionSelfCloseField)(unsafe.Pointer(pRspQryOptionSelfCloseField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspErrorOptQuoteInsert
-func hs_trade_callback_OnRspErrorOptQuoteInsert(v uintptr, pRspOptQuoteInsertField *C.struct_CHSRspOptQuoteInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspErrorOptQuoteInsert
+func uft_trade_OnRspErrorOptQuoteInsert(v uintptr, pRspOptQuoteInsertField *C.struct_CHSRspOptQuoteInsertField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspErrorOptQuoteInsert((*thost.CHSRspOptQuoteInsertField)(unsafe.Pointer(pRspOptQuoteInsertField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspOptQuoteAction
-func hs_trade_callback_OnRspOptQuoteAction(v uintptr, pRspOptQuoteActionField *C.struct_CHSRspOptQuoteActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspOptQuoteAction
+func uft_trade_OnRspOptQuoteAction(v uintptr, pRspOptQuoteActionField *C.struct_CHSRspOptQuoteActionField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspOptQuoteAction((*thost.CHSRspOptQuoteActionField)(unsafe.Pointer(pRspOptQuoteActionField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryOptQuote
-func hs_trade_callback_OnRspQryOptQuote(v uintptr, pRspQryOptQuoteField *C.struct_CHSOptQuoteField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryOptQuote
+func uft_trade_OnRspQryOptQuote(v uintptr, pRspQryOptQuoteField *C.struct_CHSOptQuoteField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryOptQuote((*thost.CHSOptQuoteField)(unsafe.Pointer(pRspQryOptQuoteField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRspQryOptCombStrategy
-func hs_trade_callback_OnRspQryOptCombStrategy(v uintptr, pRspQryOptCombStrategyField *C.struct_CHSRspQryOptCombStrategyField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
+//export uft_trade_OnRspQryOptCombStrategy
+func uft_trade_OnRspQryOptCombStrategy(v uintptr, pRspQryOptCombStrategyField *C.struct_CHSRspQryOptCombStrategyField, pRspInfo *C.struct_CHSRspInfoField, nRequestID C.int, bIsLast C.bool) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRspQryOptCombStrategy((*thost.CHSRspQryOptCombStrategyField)(unsafe.Pointer(pRspQryOptCombStrategyField)), (*thost.CHSRspInfoField)(unsafe.Pointer(pRspInfo)), int(nRequestID), bool(bIsLast))
 }
 
-//export hs_trade_callback_OnRtnTrade
-func hs_trade_callback_OnRtnTrade(v uintptr, pRtnTradeField *C.struct_CHSTradeField) {
+//export uft_trade_OnRtnTrade
+func uft_trade_OnRtnTrade(v uintptr, pRtnTradeField *C.struct_CHSTradeField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnTrade((*thost.CHSTradeField)(unsafe.Pointer(pRtnTradeField)))
 }
 
-//export hs_trade_callback_OnRtnOrder
-func hs_trade_callback_OnRtnOrder(v uintptr, pRtnOrderField *C.struct_CHSOrderField) {
+//export uft_trade_OnRtnOrder
+func uft_trade_OnRtnOrder(v uintptr, pRtnOrderField *C.struct_CHSOrderField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnOrder((*thost.CHSOrderField)(unsafe.Pointer(pRtnOrderField)))
 }
 
-//export hs_trade_callback_OnRtnExercise
-func hs_trade_callback_OnRtnExercise(v uintptr, pRtnExerciseField *C.struct_CHSExerciseField) {
+//export uft_trade_OnRtnExercise
+func uft_trade_OnRtnExercise(v uintptr, pRtnExerciseField *C.struct_CHSExerciseField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnExercise((*thost.CHSExerciseField)(unsafe.Pointer(pRtnExerciseField)))
 }
 
-//export hs_trade_callback_OnRtnCombAction
-func hs_trade_callback_OnRtnCombAction(v uintptr, pRtnCombActionField *C.struct_CHSCombActionField) {
+//export uft_trade_OnRtnCombAction
+func uft_trade_OnRtnCombAction(v uintptr, pRtnCombActionField *C.struct_CHSCombActionField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnCombAction((*thost.CHSCombActionField)(unsafe.Pointer(pRtnCombActionField)))
 }
 
-//export hs_trade_callback_OnRtnLock
-func hs_trade_callback_OnRtnLock(v uintptr, pRtnLockField *C.struct_CHSLockField) {
+//export uft_trade_OnRtnLock
+func uft_trade_OnRtnLock(v uintptr, pRtnLockField *C.struct_CHSLockField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnLock((*thost.CHSLockField)(unsafe.Pointer(pRtnLockField)))
 }
 
-//export hs_trade_callback_OnErrRtnOrderAction
-func hs_trade_callback_OnErrRtnOrderAction(v uintptr, pRtnOrderActionField *C.struct_CHSOrderActionField) {
+//export uft_trade_OnErrRtnOrderAction
+func uft_trade_OnErrRtnOrderAction(v uintptr, pRtnOrderActionField *C.struct_CHSOrderActionField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnErrRtnOrderAction((*thost.CHSOrderActionField)(unsafe.Pointer(pRtnOrderActionField)))
 }
 
-//export hs_trade_callback_OnRtnClientNotice
-func hs_trade_callback_OnRtnClientNotice(v uintptr, pRtnClientNoticeField *C.struct_CHSClientNoticeField) {
+//export uft_trade_OnRtnClientNotice
+func uft_trade_OnRtnClientNotice(v uintptr, pRtnClientNoticeField *C.struct_CHSClientNoticeField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnClientNotice((*thost.CHSClientNoticeField)(unsafe.Pointer(pRtnClientNoticeField)))
 }
 
-//export hs_trade_callback_OnRtnForQuote
-func hs_trade_callback_OnRtnForQuote(v uintptr, pRtnForQuoteField *C.struct_CHSForQuoteField) {
+//export uft_trade_OnRtnForQuote
+func uft_trade_OnRtnForQuote(v uintptr, pRtnForQuoteField *C.struct_CHSForQuoteField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnForQuote((*thost.CHSForQuoteField)(unsafe.Pointer(pRtnForQuoteField)))
 }
 
-//export hs_trade_callback_OnRtnQuote
-func hs_trade_callback_OnRtnQuote(v uintptr, pRtnQuoteField *C.struct_CHSQuoteField) {
+//export uft_trade_OnRtnQuote
+func uft_trade_OnRtnQuote(v uintptr, pRtnQuoteField *C.struct_CHSQuoteField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnQuote((*thost.CHSQuoteField)(unsafe.Pointer(pRtnQuoteField)))
 }
 
-//export hs_trade_callback_OnRtnExchangeStatus
-func hs_trade_callback_OnRtnExchangeStatus(v uintptr, pRtnExchangeStatusField *C.struct_CHSExchangeStatusField) {
+//export uft_trade_OnRtnExchangeStatus
+func uft_trade_OnRtnExchangeStatus(v uintptr, pRtnExchangeStatusField *C.struct_CHSExchangeStatusField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnExchangeStatus((*thost.CHSExchangeStatusField)(unsafe.Pointer(pRtnExchangeStatusField)))
 }
 
-//export hs_trade_callback_OnRtnProductStatus
-func hs_trade_callback_OnRtnProductStatus(v uintptr, pRtnProductStatusField *C.struct_CHSProductStatusField) {
+//export uft_trade_OnRtnProductStatus
+func uft_trade_OnRtnProductStatus(v uintptr, pRtnProductStatusField *C.struct_CHSProductStatusField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnProductStatus((*thost.CHSProductStatusField)(unsafe.Pointer(pRtnProductStatusField)))
 }
 
-//export hs_trade_callback_OnRtnOptionSelfClose
-func hs_trade_callback_OnRtnOptionSelfClose(v uintptr, pRtnOptionSelfCloseField *C.struct_CHSOptionSelfCloseField) {
+//export uft_trade_OnRtnOptionSelfClose
+func uft_trade_OnRtnOptionSelfClose(v uintptr, pRtnOptionSelfCloseField *C.struct_CHSOptionSelfCloseField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnOptionSelfClose((*thost.CHSOptionSelfCloseField)(unsafe.Pointer(pRtnOptionSelfCloseField)))
 }
 
-//export hs_trade_callback_OnRtnOptQuote
-func hs_trade_callback_OnRtnOptQuote(v uintptr, pRtnOptQuoteField *C.struct_CHSOptQuoteField) {
+//export uft_trade_OnRtnOptQuote
+func uft_trade_OnRtnOptQuote(v uintptr, pRtnOptQuoteField *C.struct_CHSOptQuoteField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnOptQuote((*thost.CHSOptQuoteField)(unsafe.Pointer(pRtnOptQuoteField)))
 }
 
-//export hs_trade_callback_OnRtnTransfer
-func hs_trade_callback_OnRtnTransfer(v uintptr, pRtnTransferField *C.struct_CHSTransferField) {
+//export uft_trade_OnRtnTransfer
+func uft_trade_OnRtnTransfer(v uintptr, pRtnTransferField *C.struct_CHSTransferField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnRtnTransfer((*thost.CHSTransferField)(unsafe.Pointer(pRtnTransferField)))
 }
 
-//export hs_trade_callback_OnErrRtnOptQuoteAction
-func hs_trade_callback_OnErrRtnOptQuoteAction(v uintptr, pRtnOptQuoteActionField *C.struct_CHSOptQuoteActionField) {
+//export uft_trade_OnErrRtnOptQuoteAction
+func uft_trade_OnErrRtnOptQuoteAction(v uintptr, pRtnOptQuoteActionField *C.struct_CHSOptQuoteActionField) {
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnErrRtnOptQuoteAction((*thost.CHSOptQuoteActionField)(unsafe.Pointer(pRtnOptQuoteActionField)))
 }

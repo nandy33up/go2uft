@@ -1,33 +1,48 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
 
 	"github.com/nandy33up/go2uft/thost"
-	"github.com/nandy33up/go2uft/uft_dyn"
+	"github.com/nandy33up/go2uft/uft"
 )
 
 type MarketSpi struct {
-	uft_dyn.BaseMdSpi
+	uft.BaseMdSpi
 }
+
+var mdapi thost.CHSMdApi
 
 func NewMarketSpi() *MarketSpi {
 	return &MarketSpi{}
 }
 
 func (s *MarketSpi) OnFrontConnected() {
-	log.Println("Market: Front connected")
+	log.Println("Market: Front connected, subscribing to instruments...")
 
-	loginField := &thost.CHSReqUserLoginField{}
-	copy(loginField.AccountID[:], "your_account_id")
-	copy(loginField.Password[:], "your_password")
-	loginField.UserApplicationType = thost.HSUserApplicationType(thost.HS_AT_Investor)
+	subscribes := []thost.CHSReqDepthMarketDataField{
+		{},
+		{},
+		{},
+		{},
+		{},
+	}
+	copy(subscribes[0].ExchangeID[:], "1")
+	copy(subscribes[0].InstrumentID[:], "588000")
+	copy(subscribes[1].ExchangeID[:], "1")
+	copy(subscribes[1].InstrumentID[:], "588080")
+	copy(subscribes[2].ExchangeID[:], "2")
+	copy(subscribes[2].InstrumentID[:], "159915")
+	copy(subscribes[3].ExchangeID[:], "1")
+	copy(subscribes[3].InstrumentID[:], "10011299")
+	copy(subscribes[4].ExchangeID[:], "2")
+	copy(subscribes[4].InstrumentID[:], "90007293")
 
-	fmt.Println("Market: Sending login request...")
+	mdapi.ReqDepthMarketDataSubscribe(subscribes, len(subscribes), 1)
+	log.Println("Market: Subscription request sent")
 }
 
 func (s *MarketSpi) OnFrontDisconnected(nResult int) {
@@ -47,12 +62,10 @@ func (s *MarketSpi) OnRtnDepthMarketData(pDepthMarketData *thost.CHSDepthMarketD
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	log.Println("Go2UFT Market Demo (Dynamic Library Version)")
+	log.Println("Go2UFT Market Demo (Static Library Version)")
 	log.Println("==========================================")
 
-	mdapi := uft_dyn.CreateMdApi(
-		uft_dyn.DynamicLibPath("v3.7.4/sdk/linux.x64/libHSMdApi.so"),
-	)
+	mdapi = uft.CreateMdApi()
 
 	spi := NewMarketSpi()
 	mdapi.RegisterSpi(spi)
@@ -64,8 +77,21 @@ func main() {
 	log.Printf("API Version: %s", mdapi.GetApiVersion())
 
 	var license thost.HSLicenseFile
-	copy(license[:], "license.dat")
-	mdapi.Init(&thost.CHSInitConfigField{CommLicense: license}, nil)
+	copy(license[:], "/root/go2uft/license.dat")
+	initCfg := &thost.CHSInitConfigField{
+		APICheckVersion: 240002,
+		CommLicense:     license,
+	}
+	ret := mdapi.Init(initCfg, nil)
+	if ret != 0 {
+		log.Printf("Market: Init failed with code: %d", ret)
+	} else {
+		log.Println("Market: Waiting for connection...")
+	}
+
+	go func() {
+		mdapi.Join()
+	}()
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
