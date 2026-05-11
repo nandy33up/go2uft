@@ -89,14 +89,11 @@ func main() {
 		mdapi.Join()
 	}()
 
-	sig := make(chan os.Signal, 1)
-	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
+	exitSignal := make(chan os.Signal, 1)
+	signal.Notify(exitSignal, syscall.SIGINT, syscall.SIGTERM)
 
-	select {
-	case <-sig:
-		log.Println("Shutting down...")
-	}
-
+	<-exitSignal
+	log.Println("Shutting down...")
 	mdapi.ReleaseApi()
 	log.Println("Done")
 }
