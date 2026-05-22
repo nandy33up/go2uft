@@ -450,6 +450,9 @@ func uft_trade_OnFrontConnected(v uintptr) {
 
 //export uft_trade_OnFrontDisconnected
 func uft_trade_OnFrontDisconnected(v uintptr, nReason C.int) {
+	if v == 0 {
+		return
+	}
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnFrontDisconnected(int(nReason))
 }

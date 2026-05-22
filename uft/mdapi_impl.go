@@ -175,6 +175,9 @@ func uft_quote_OnFrontConnected(v uintptr) {
 
 //export uft_quote_OnFrontDisconnected
 func uft_quote_OnFrontDisconnected(v uintptr, nReason C.int) {
+	if v == 0 {
+		return
+	}
 	api := cgo.Handle(v).Value().(*CMdApi)
 	api.spi.OnFrontDisconnected(int(nReason))
 }
