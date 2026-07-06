@@ -444,6 +444,9 @@ func (api *CTradeApi) ReqQryOptCombStrategy(pReqQryOptCombStrategy *thost.CHSReq
 
 //export uft_trade_OnFrontConnected
 func uft_trade_OnFrontConnected(v uintptr) {
+	if v == 0 {
+		return
+	}
 	api := cgo.Handle(v).Value().(*CTradeApi)
 	api.spi.OnFrontConnected()
 }

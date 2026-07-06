@@ -169,6 +169,9 @@ func (api *CMdApi) GetApiErrorMsg(nErrorCode int) string {
 
 //export uft_quote_OnFrontConnected
 func uft_quote_OnFrontConnected(v uintptr) {
+	if v == 0 {
+		return
+	}
 	api := cgo.Handle(v).Value().(*CMdApi)
 	api.spi.OnFrontConnected()
 }
